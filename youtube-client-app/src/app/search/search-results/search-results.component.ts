@@ -1,10 +1,10 @@
 import { Component } from '@angular/core';
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+import SearchResponseModel from '../search-response.model';
 
 @Component({
-  selector: 'search-results',
+  selector: 'app-search-results',
   templateUrl: './search-results.component.html',
-  styleUrls: ['./search-results.component.scss']
+  styleUrls: ['./search-results.component.scss'],
 })
-export class SearchResultsComponent {
-
-}
+export default class SearchResultsComponent {}
