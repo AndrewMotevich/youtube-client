@@ -1,0 +1,8 @@
+.search-result__wrapper {
+  margin-top: 31px;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  flex-wrap: wrap;
+  row-gap: 28px;
+  column-gap: 29px;
+}

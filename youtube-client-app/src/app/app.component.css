@@ -4,8 +4,8 @@ html {
   box-sizing: border-box;
 }
 
-.flex-column {
+body {
   display: flex;
   flex-direction: column;
   align-items: center;
-}
+}/*# sourceMappingURL=app.component.css.map */
