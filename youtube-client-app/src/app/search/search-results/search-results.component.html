@@ -1,14 +1,3 @@
 <section class="search-result__wrapper">
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
-  <app-search-item></app-search-item>
+  <app-search-item *ngFor="let item of mockResponse.items; index as i" [item]="mockResponse.items[i]"></app-search-item>
 </section>

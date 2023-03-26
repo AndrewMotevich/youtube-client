@@ -37,14 +37,9 @@ type Statistics = {
   commentCount: string;
 };
 
-type SearchResponse = {
+export type SearchResponse = {
   kind: string;
   etag: string;
   pageInfo: { totalResults: number; resultsPerPage: number };
   items: ItemObj[];
 };
-
-export default interface SearchResponseModel {
-  searchResponse: SearchResponse;
-  getSearchItems(query: string): Promise<void>;
-}

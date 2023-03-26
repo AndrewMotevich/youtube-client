@@ -13,6 +13,7 @@ import SortSettingsComponent from './header/sort-settings/sort-settings.componen
 import SearchItemComponent from './search/search-item/search-item.component';
 import SearchAddItemComponent from './search/search-add-item/search-add-item.component';
 import RegistrationComponent from './header/registration/registration.component';
+import ShortNumberPipe from './pipes/short-number.pipe';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import RegistrationComponent from './header/registration/registration.component'
     SortSettingsComponent,
     SearchAddItemComponent,
     RegistrationComponent,
+    ShortNumberPipe,
   ],
   imports: [
     BrowserModule,

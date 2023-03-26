@@ -16,6 +16,7 @@
         "airbnb-typescript/base"
       ],
       "rules": {
+        "class-methods-use-this": ["error", { "exceptMethods": ["transform"] }],
         "@angular-eslint/directive-selector": [
           "error",
           {
