@@ -14,6 +14,7 @@ import SearchItemComponent from './search/search-item/search-item.component';
 import SearchAddItemComponent from './search/search-add-item/search-add-item.component';
 import RegistrationComponent from './header/registration/registration.component';
 import ShortNumberPipe from './pipes/short-number.pipe';
+import CardColorPipe from './pipes/card-color.pipe';
 
 @NgModule({
   declarations: [
@@ -26,6 +27,7 @@ import ShortNumberPipe from './pipes/short-number.pipe';
     SearchAddItemComponent,
     RegistrationComponent,
     ShortNumberPipe,
+    CardColorPipe,
   ],
   imports: [
     BrowserModule,

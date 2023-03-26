@@ -23,6 +23,8 @@ export default class SearchItemComponent implements OnInit, SearchItemModel {
 
   copy: string | undefined = '';
 
+  published: string | undefined = '';
+
   searchItem: ItemObj | undefined;
 
   ngOnInit(): void {
@@ -33,5 +35,6 @@ export default class SearchItemComponent implements OnInit, SearchItemModel {
     this.like = this.searchItem?.statistics.likeCount;
     this.dislike = this.searchItem?.statistics.dislikeCount;
     this.copy = this.searchItem?.statistics.commentCount;
+    this.published = this.searchItem?.snippet.publishedAt;
   }
 }
