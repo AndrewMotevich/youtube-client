@@ -5,7 +5,7 @@
       <input class="input-search" type="search" placeholder="What do you want to find out?">
       <button class="search-button">search</button>
     </form>
-    <div class="settings-button">
+    <div class="settings-button" (click)="showHide()">
       <img src="../../../assets/Vector.svg" alt="settings">
     </div>
   </div>
@@ -16,3 +16,4 @@
     </div>
   </div>
 </header>
+<app-sort-settings *ngIf="isOn"></app-sort-settings>

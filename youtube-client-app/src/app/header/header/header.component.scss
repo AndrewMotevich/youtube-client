@@ -8,7 +8,9 @@ p {
   margin: 0;
   padding: 0;
 }
-
+.hide {
+  display: none;
+}
 .header__wrapper {
   display: flex;
   align-items: center;
