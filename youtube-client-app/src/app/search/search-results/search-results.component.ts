@@ -25,8 +25,6 @@ export default class SearchResultsComponent implements OnInit, OnChanges {
 
   ngOnChanges(): void {
     this.filterResponse();
-    console.log(this.filterObject);
-    console.log(this.searchResults);
   }
 
   filterResponse() {
