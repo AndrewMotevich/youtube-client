@@ -1,3 +1,4 @@
 <section class="search-result__wrapper">
-  <app-search-item *ngFor="let item of mockResponse.items; index as i" [item]="mockResponse.items[i]"></app-search-item>
+  <app-search-item *ngFor="let item of searchResults | cardFilter:filterObject.queryString; index as i"
+    [item]="searchResults[i]"></app-search-item>
 </section>

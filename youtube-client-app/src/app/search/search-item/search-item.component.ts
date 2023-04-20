@@ -11,6 +11,8 @@ import { ItemObj } from '../search-response.model';
 export default class SearchItemComponent implements OnInit, SearchItemModel {
   @Input() item?: ItemObj;
 
+  date: string | undefined = '';
+
   title: string | undefined = '';
 
   img: string | undefined = '';
@@ -27,8 +29,11 @@ export default class SearchItemComponent implements OnInit, SearchItemModel {
 
   searchItem: ItemObj | undefined;
 
+  parseDate: number | undefined;
+
   ngOnInit(): void {
     this.searchItem = this.item;
+    this.date = this.searchItem?.snippet.publishedAt;
     this.title = this.searchItem?.snippet.title;
     this.img = this.searchItem?.snippet.thumbnails['medium'].url;
     this.viewed = this.searchItem?.statistics.viewCount;
@@ -36,5 +41,6 @@ export default class SearchItemComponent implements OnInit, SearchItemModel {
     this.dislike = this.searchItem?.statistics.dislikeCount;
     this.copy = this.searchItem?.statistics.commentCount;
     this.published = this.searchItem?.snippet.publishedAt;
+    this.parseDate = this.date !== undefined ? Date.parse(this.date) : undefined;
   }
 }

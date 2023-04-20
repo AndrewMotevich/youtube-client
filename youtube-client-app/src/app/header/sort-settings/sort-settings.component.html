@@ -1,9 +1,9 @@
 <section class="sort-settings">
   <div class="sort-settings__wrapper">
     <p>Sorting by:</p>
-    <a href="#">date</a>
-    <a href="#">count of views</a>
+    <a href="#" (click)="setDateSort()">date{{dateSort | arrowIncDec}}</a>
+    <a href="#" (click)="setViewSort()">count of views{{viewSort | arrowIncDec}}</a>
     <a href="#">by word or sentence</a>
-    <input type="text">
+    <input type="text" (keydown.enter)="setQuery($event)">
   </div>
 </section>

@@ -1,4 +1,5 @@
 import { Component, Output, EventEmitter } from '@angular/core';
+import { FilterSearchType } from 'src/app/search/filter-search.model';
 
 @Component({
   selector: 'app-header',
@@ -8,11 +9,20 @@ import { Component, Output, EventEmitter } from '@angular/core';
 export default class HeaderComponent {
   @Output() newItemEvent = new EventEmitter<string>();
 
+  @Output() filterEvent = new EventEmitter<FilterSearchType>();
+
   isOn = false;
 
-  addNewItem(event: Event) {
+  addNewFilter(value: FilterSearchType) {
+    this.filterEvent.emit(value);
+  }
+
+  addNewItem(
+    event: Event,
+    searchQuery = (event.target as HTMLInputElement).value
+  ) {
     event.preventDefault();
-    this.newItemEvent.emit((event.target as HTMLInputElement).value);
+    this.newItemEvent.emit(searchQuery);
   }
 
   showHide() {

@@ -4,7 +4,7 @@
     <form>
       <input class="input-search" placeholder="What do you want to find out?" #searchInput
         (keydown.enter)="addNewItem($event)">
-      <button class="search-button" (click)="addNewItem($event)">search</button>
+      <button class="search-button" (click)="addNewItem($event, searchInput.value)">search</button>
     </form>
     <div class="settings-button" (click)="showHide()">
       <img src="../../../assets/Vector.svg" alt="settings">
@@ -17,4 +17,4 @@
     </div>
   </div>
 </header>
-<app-sort-settings *ngIf="isOn"></app-sort-settings>
+<app-sort-settings (filterEmitter)="addNewFilter($event)" *ngIf="isOn"></app-sort-settings>

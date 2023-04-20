@@ -1,4 +1,4 @@
 <div class="flex-column">
-  <app-header (newItemEvent)="isShow($event)"></app-header>
-  <app-search-results *ngIf="showResult"></app-search-results>
+  <app-header (newItemEvent)="isShow($event)" (filterEvent)="setFilterObj($event)"></app-header>
+  <app-search-results *ngIf="showResult" [filterObject]="filterObj"></app-search-results>
 </div>
