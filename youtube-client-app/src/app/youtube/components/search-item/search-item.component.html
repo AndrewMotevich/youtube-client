@@ -1,0 +1,26 @@
+<section style="width: 263px;">
+  <mat-card class="search-item">
+    <img class="search-item__img" src={{img}} alt="card-img">
+    <div class="item-info">
+      <div class="item-info__item">
+        <img src="../../../assets/icons/viewed.png" alt="viewed">
+        {{viewed | shortNumber}}
+      </div>
+      <div class="item-info__item">
+        <img src="../../../assets/icons/liked.png" alt="like">
+        {{like | shortNumber}}
+      </div>
+      <div class="item-info__item">
+        <img src="../../../assets/icons/dislike.png" alt="dislike">
+        {{dislike | shortNumber}}
+      </div>
+      <div class="item-info__item">
+        <img src="../../../assets/icons/Group 9.png" alt="copy">
+        {{copy | shortNumber}}
+      </div>
+    </div>
+    <p class="search-item__title">{{title}}</p>
+    <button class="search-item__button" mat-button>more...</button>
+  </mat-card>
+  <div class="footer-color  {{published | cardColor}}"></div>
+</section>
