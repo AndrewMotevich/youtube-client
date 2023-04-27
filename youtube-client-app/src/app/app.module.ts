@@ -6,16 +6,18 @@ import AppRoutingModule from './app-routing.module';
 import AppComponent from './app.component';
 import MainPageModule from './youtube/pages/main-page/main-page.module';
 import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page.component';
-import LoginFormComponent from './auth/components/login-form/login-form.component';
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
 import CoreModule from './core/core.module';
+import LoginPageModule from './auth/pages/login-page/login-page.module';
+import DetailedPageModule from './youtube/pages/detailed-page/detailed-page.module';
+import DetailedPageComponent from './youtube/pages/detailed-page/detailed-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     NotFoundPageComponent,
-    LoginFormComponent,
     LoginPageComponent,
+    DetailedPageComponent,
   ],
   imports: [
     BrowserModule,
@@ -23,6 +25,8 @@ import CoreModule from './core/core.module';
     BrowserAnimationsModule,
     MainPageModule,
     CoreModule,
+    LoginPageModule,
+    DetailedPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

@@ -15,11 +15,12 @@ import CardFilterPipe from '../../pipes/card-filter.pipe';
   declarations: [
     SearchResultsComponent,
     SearchItemComponent,
-    ShortNumberPipe,
     CardColorPipe,
     CardFilterPipe,
     MainPageComponent,
+    ShortNumberPipe,
   ],
   imports: [CommonModule, MatCardModule, MatProgressBarModule],
+  exports: [ShortNumberPipe, CardColorPipe],
 })
 export default class MainPageModule {}
