@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { FilterSearchType } from '../../models/filter-search.model';
+import ShowResultsServiceService from 'src/app/core/services/show-results-service.service';
+import FilteredResultServiceService from '../../services/filtered-result-service.service';
 
 @Component({
   selector: 'app-main-page',
@@ -7,24 +8,8 @@ import { FilterSearchType } from '../../models/filter-search.model';
   styleUrls: ['./main-page.component.scss'],
 })
 export default class MainPageComponent {
-  showResult = false;
-
-  filterObj: FilterSearchType = {
-    viewOrder: undefined,
-    dateOrder: undefined,
-    queryString: undefined,
-  };
-
-  setFilterObj(event: FilterSearchType) {
-    this.filterObj = event;
-  }
-
-  searchQuery = '';
-
-  isShow(value: string) {
-    if (value !== '') {
-      this.searchQuery = value;
-      this.showResult = true;
-    } else this.showResult = false;
-  }
+  constructor(
+    public showResultService: ShowResultsServiceService,
+    public filteredResultService: FilteredResultServiceService
+  ) {}
 }
