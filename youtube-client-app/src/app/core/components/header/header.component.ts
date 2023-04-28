@@ -1,4 +1,5 @@
-import { Component, Output, EventEmitter } from '@angular/core';
+import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import LoginService from 'src/app/auth/services/login.service';
 import { FilterSearchType } from 'src/app/youtube/models/filter-search.model';
 
@@ -7,12 +8,12 @@ import { FilterSearchType } from 'src/app/youtube/models/filter-search.model';
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
 })
-export default class HeaderComponent {
+export default class HeaderComponent implements OnInit {
   @Output() newItemEvent = new EventEmitter<string>();
 
   @Output() filterEvent = new EventEmitter<FilterSearchType>();
 
-  constructor(public loginService: LoginService) {}
+  constructor(public loginService: LoginService, private router: Router) {}
 
   isOn = false;
 
@@ -34,5 +35,12 @@ export default class HeaderComponent {
 
   logOut() {
     this.loginService.setIsLogin(false);
+  }
+
+  ngOnInit(): void {
+    if (localStorage.getItem('login') === 'true') {
+      this.loginService.setIsLogin(true);
+      this.router.navigate(['/main']);
+    }
   }
 }

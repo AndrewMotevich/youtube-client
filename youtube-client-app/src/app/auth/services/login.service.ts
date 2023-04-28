@@ -8,5 +8,6 @@ export default class LoginService {
 
   setIsLogin(value: boolean) {
     this.isLogin = value;
+    localStorage.setItem('login', `${value}`);
   }
 }
