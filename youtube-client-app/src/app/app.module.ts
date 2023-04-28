@@ -8,23 +8,15 @@ import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
 import CoreModule from './core/core.module';
 import LoginPageModule from './auth/pages/login-page/login-page.module';
-import DetailedPageModule from './youtube/pages/detailed-page/detailed-page.module';
-import DetailedPageComponent from './youtube/pages/detailed-page/detailed-page.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    NotFoundPageComponent,
-    LoginPageComponent,
-    DetailedPageComponent,
-  ],
+  declarations: [AppComponent, NotFoundPageComponent, LoginPageComponent],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     CoreModule,
     LoginPageModule,
-    DetailedPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],

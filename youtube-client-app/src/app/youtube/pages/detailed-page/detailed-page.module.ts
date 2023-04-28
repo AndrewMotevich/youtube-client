@@ -1,13 +1,14 @@
 import { NgModule } from '@angular/core';
 
 import { CommonModule } from '@angular/common';
-import AppRoutingModule from 'src/app/app-routing.module';
 import VideoCardComponent from '../../components/video-card/video-card.component';
-import MainPageModule from '../main-page/main-page.module';
+import PipesModule from '../pipes/pipes.module';
+import DetailedRoutingModule from './detailed-routing.module';
+import DetailedPageComponent from './detailed-page.component';
 
 @NgModule({
-  declarations: [VideoCardComponent],
-  imports: [CommonModule, MainPageModule, AppRoutingModule],
+  declarations: [VideoCardComponent, DetailedPageComponent],
+  imports: [CommonModule, DetailedRoutingModule, PipesModule],
   exports: [VideoCardComponent],
 })
 export default class DetailedPageModule {}
