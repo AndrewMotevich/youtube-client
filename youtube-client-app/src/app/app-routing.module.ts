@@ -1,6 +1,5 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterLink } from '@angular/router';
-import MainPageComponent from './youtube/pages/main-page/main-page.component';
 import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page.component';
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
 import DetailedPageComponent from './youtube/pages/detailed-page/detailed-page.component';
@@ -10,7 +9,10 @@ const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
   {
     path: 'main',
-    component: MainPageComponent,
+    loadChildren: () =>
+      import('./youtube/pages/main-page/main-page.module').then(
+        (m) => m.default
+      ),
     canActivate: [IsLoggedInGuard],
   },
   {
