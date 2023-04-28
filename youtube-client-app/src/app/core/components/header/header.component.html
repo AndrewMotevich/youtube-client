@@ -1,6 +1,6 @@
 <header class="header__wrapper">
   <div class="search__wrapper">
-    <img src="../../../assets/logo.png" alt="logo">
+    <a routerLink="/"><img src="../../../assets/logo.png" alt="logo"></a>
     <form>
       <input class="input-search" placeholder="What do you want to find out?" #searchInput
         (keydown.enter)="addNewItem($event)">
@@ -10,11 +10,14 @@
       <img src="../../../assets/Vector.svg" alt="settings">
     </div>
   </div>
-  <div class="user__wrapper">
-    <p>Your name</p>
-    <div class="user-button">
-      <img src="../../../assets/Subtract.svg" alt="user">
+  <a routerLink="/login" (click)="logOut()">
+    <div class="user__wrapper">
+      <p>{{loginService.isLogin ? 'LogOut' : 'LogIn'}}</p>
+      <div class="user-button">
+        <img src="../../../assets/Subtract.svg" alt="user">
+      </div>
     </div>
-  </div>
+  </a>
 </header>
 <app-sort-settings (filterEmitter)="addNewFilter($event)" *ngIf="isOn"></app-sort-settings>
+<router-outlet></router-outlet>

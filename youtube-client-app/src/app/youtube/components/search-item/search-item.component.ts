@@ -1,5 +1,4 @@
 import { Component, Input, OnInit } from '@angular/core';
-import SearchItemModel from '../../models/search-item.model';
 import { ItemObj } from '../../models/search-response.model';
 
 @Component({
@@ -7,31 +6,34 @@ import { ItemObj } from '../../models/search-response.model';
   templateUrl: './search-item.component.html',
   styleUrls: ['./search-item.component.scss'],
 })
-export default class SearchItemComponent implements OnInit, SearchItemModel {
+export default class SearchItemComponent implements OnInit {
   @Input() item?: ItemObj;
 
-  date: string | undefined = '';
+  id?: string;
 
-  title: string | undefined = '';
+  date?: string = '';
 
-  img: string | undefined = '';
+  title?: string = '';
 
-  viewed: string | undefined = '';
+  img?: string = '';
 
-  like: string | undefined = '';
+  viewed?: string = '';
 
-  dislike: string | undefined = '';
+  like?: string = '';
 
-  copy: string | undefined = '';
+  dislike?: string = '';
 
-  published: string | undefined = '';
+  copy?: string = '';
 
-  searchItem: ItemObj | undefined;
+  published?: string = '';
 
-  parseDate: number | undefined;
+  searchItem?: ItemObj;
+
+  parseDate?: number;
 
   ngOnInit(): void {
     this.searchItem = this.item;
+    this.id = this.searchItem?.id;
     this.date = this.searchItem?.snippet.publishedAt;
     this.title = this.searchItem?.snippet.title;
     this.img = this.searchItem?.snippet.thumbnails['medium'].url;

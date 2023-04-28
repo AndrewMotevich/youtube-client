@@ -1,5 +1,7 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
 import { ItemObj } from '../../models/search-response.model';
+import MockApiService from '../../services/mock-api.service';
 
 @Component({
   selector: 'app-video-card',
@@ -7,8 +9,6 @@ import { ItemObj } from '../../models/search-response.model';
   styleUrls: ['./video-card.component.scss'],
 })
 export default class VideoCardComponent implements OnInit {
-  @Input() item?: ItemObj;
-
   options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
     year: 'numeric',
@@ -16,45 +16,51 @@ export default class VideoCardComponent implements OnInit {
     day: 'numeric',
   };
 
-  enFormatDate: string | undefined;
+  enFormatDate?: string;
 
-  searchItem: ItemObj | undefined;
+  searchItem?: ItemObj;
 
-  date: string | undefined = '';
+  date?: string = '';
 
-  description: string | undefined = '';
+  description?: string = '';
 
-  title: string | undefined = '';
+  title?: string = '';
 
-  img: string | undefined = '';
+  img?: string = '';
 
-  viewed: string | undefined = '';
+  viewed?: string = '';
 
-  like: string | undefined = '';
+  like?: string = '';
 
-  dislike: string | undefined = '';
+  dislike?: string = '';
 
-  copy: string | undefined = '';
+  copy?: string = '';
 
-  published: string | undefined = '';
+  published?: string = '';
 
-  parseDate: number | undefined;
+  parseDate?: number;
+
+  constructor(private route: ActivatedRoute, private mockApi: MockApiService) {}
 
   ngOnInit(): void {
-    this.searchItem = this.item;
-    this.date = this.searchItem?.snippet.publishedAt;
-    this.description = this.searchItem?.snippet.description;
-    this.title = this.searchItem?.snippet.title;
-    this.img = this.searchItem?.snippet.thumbnails['maxres'].url;
-    this.viewed = this.searchItem?.statistics.viewCount;
-    this.like = this.searchItem?.statistics.likeCount;
-    this.dislike = this.searchItem?.statistics.dislikeCount;
-    this.copy = this.searchItem?.statistics.commentCount;
-    this.published = this.searchItem?.snippet.publishedAt;
-    this.parseDate =
-      this.date !== undefined ? Date.parse(this.date) : undefined;
-    this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
-      this.parseDate
-    );
+    const id = this.route.snapshot.paramMap.get('id');
+    this.mockApi.getItemById(id as string).subscribe((obj) => {
+      this.searchItem = obj;
+
+      this.date = this.searchItem?.snippet.publishedAt;
+      this.description = this.searchItem?.snippet.description;
+      this.title = this.searchItem?.snippet.title;
+      this.img = this.searchItem?.snippet.thumbnails['maxres'].url;
+      this.viewed = this.searchItem?.statistics.viewCount;
+      this.like = this.searchItem?.statistics.likeCount;
+      this.dislike = this.searchItem?.statistics.dislikeCount;
+      this.copy = this.searchItem?.statistics.commentCount;
+      this.published = this.searchItem?.snippet.publishedAt;
+      this.parseDate =
+        this.date !== undefined ? Date.parse(this.date) : undefined;
+      this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
+        this.parseDate
+      );
+    });
   }
 }

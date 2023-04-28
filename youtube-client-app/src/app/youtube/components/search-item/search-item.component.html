@@ -20,7 +20,7 @@
       </div>
     </div>
     <p class="search-item__title">{{title}}</p>
-    <button class="search-item__button" mat-button>more...</button>
+    <a routerLink="/detailed/{{id}}"><button class="search-item__button" mat-button>more...</button></a>
   </mat-card>
   <div class="footer-color  {{published | cardColor}}"></div>
 </section>
