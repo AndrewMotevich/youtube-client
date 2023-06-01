@@ -3,9 +3,11 @@ import { RouterModule, Routes, RouterLink } from '@angular/router';
 import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page.component';
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
 import IsLoggedInGuard from './auth/guards/is-logged-in.guard';
+import AdminPageComponent from './auth/pages/admin-page/admin-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
+  { path: 'admin', component: AdminPageComponent },
   {
     path: 'main',
     loadChildren: () =>

@@ -1,0 +1,44 @@
+<form [formGroup]="createCardForm" class="create-card-form-container" (submit)="submit()">
+  <h2>Create new card</h2>
+  <mat-hint>Title</mat-hint>
+  <mat-form-field appearance="fill">
+    <input matInput formControlName="title">
+    <mat-error *ngIf="createCardForm.controls.title.hasError('required')">Please enter a title</mat-error>
+    <mat-error *ngIf="createCardForm.controls.title.hasError('minlength')">The title is too short</mat-error>
+    <mat-error *ngIf="createCardForm.controls.title.hasError('maxlength')">The title is too long</mat-error>
+  </mat-form-field>
+
+  <mat-hint>Description</mat-hint>
+  <mat-form-field appearance="fill">
+    <input matInput formControlName="description">
+    <mat-error *ngIf="createCardForm.controls.description.hasError('maxlength')">The description is too long</mat-error>
+  </mat-form-field>
+
+  <mat-hint>Img</mat-hint>
+  <mat-form-field appearance="fill">
+    <input matInput formControlName="img">
+    <mat-error *ngIf="createCardForm.controls.img.hasError('required')">Please enter a link to the image</mat-error>
+    <mat-error *ngIf="createCardForm.controls.img.hasError('pattern')">The image link is invalid</mat-error>
+  </mat-form-field>
+
+  <mat-hint>Link video</mat-hint>
+  <mat-form-field appearance="fill">
+    <input matInput formControlName="videoLink">
+    <mat-error *ngIf="createCardForm.controls.videoLink.hasError('required')">Please enter a link to the</mat-error>
+    <mat-error *ngIf="createCardForm.controls.videoLink.hasError('pattern')">The video link is invalid</mat-error>
+  </mat-form-field>
+
+  <mat-hint>Creation date</mat-hint>
+  <mat-form-field>
+    <input matInput [matDatepicker]="picker" formControlName="creationDate">
+    <mat-hint>MM/DD/YYYY</mat-hint>
+    <mat-datepicker-toggle matIconSuffix [for]="picker"></mat-datepicker-toggle>
+    <mat-datepicker #picker></mat-datepicker>
+    <mat-error *ngIf="createCardForm.controls.creationDate.hasError('required')">Please enter a creation
+      date</mat-error>
+    <mat-error *ngIf="createCardForm.controls.creationDate.hasError('dateError')">The date is invalid</mat-error>
+  </mat-form-field>
+
+  <button class="btn" mat-raised-button color="primary">Create card</button>
+
+</form>

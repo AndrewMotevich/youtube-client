@@ -8,6 +8,7 @@ import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
 import CoreModule from './core/core.module';
 import LoginPageModule from './auth/pages/login-page/login-page.module';
+import AdminPageModule from './auth/pages/admin-page/admin-page.module';
 
 @NgModule({
   declarations: [AppComponent, NotFoundPageComponent, LoginPageComponent],
@@ -17,6 +18,7 @@ import LoginPageModule from './auth/pages/login-page/login-page.module';
     BrowserAnimationsModule,
     CoreModule,
     LoginPageModule,
+    AdminPageModule,
   ],
   providers: [],
   bootstrap: [AppComponent],
