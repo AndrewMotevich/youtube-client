@@ -10,6 +10,6 @@ export default class IsLoggedInGuard implements CanActivate {
   constructor(private loginService: LoginService) {}
 
   canActivate() {
-    return this.loginService.isLogin;
+    return this.loginService.getIsLogin();
   }
 }

@@ -4,7 +4,11 @@ import { Injectable } from '@angular/core';
   providedIn: 'root',
 })
 export default class LoginService {
-  isLogin = false;
+  private isLogin = false;
+
+  getIsLogin(): boolean {
+    return this.isLogin;
+  }
 
   setIsLogin(value: boolean) {
     this.isLogin = value;

@@ -12,7 +12,7 @@
   </div>
   <a routerLink="/login" (click)="logOut()">
     <div class="user__wrapper">
-      <p>{{loginService.isLogin ? 'LogOut' : 'LogIn'}}</p>
+      <p>{{loginService.getIsLogin() ? 'LogOut' : 'LogIn'}}</p>
       <div class="user-button">
         <img src="../../../assets/Subtract.svg" alt="user">
       </div>
