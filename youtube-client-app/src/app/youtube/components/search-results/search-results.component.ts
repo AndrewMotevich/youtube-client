@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnChanges } from '@angular/core';
+import { Component, Input, OnChanges } from '@angular/core';
 import { ItemObj, SearchResponse } from '../../models/search-response.model';
 import response from './mock-results/results.json';
 import { FilterSearchType } from '../../models/filter-search.model';
@@ -8,20 +8,16 @@ import { FilterSearchType } from '../../models/filter-search.model';
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
 })
-export default class SearchResultsComponent implements OnInit, OnChanges {
+export default class SearchResultsComponent implements OnChanges {
   @Input() filterObject: FilterSearchType = {
     viewOrder: undefined,
     dateOrder: undefined,
     queryString: undefined,
   };
 
-  mockResponse = response as unknown as SearchResponse;
+  mockResponse: SearchResponse = response;
 
   searchResults: ItemObj[] = [];
-
-  ngOnInit(): void {
-    this.filterResponse();
-  }
 
   ngOnChanges(): void {
     this.filterResponse();
@@ -29,14 +25,9 @@ export default class SearchResultsComponent implements OnInit, OnChanges {
 
   filterResponse() {
     const { viewOrder, dateOrder } = this.filterObject;
-    if (viewOrder !== undefined) {
-      if (viewOrder === true) this.sortByViews(true);
-      if (viewOrder === false) this.sortByViews(false);
-    }
-    if (dateOrder !== undefined) {
-      if (dateOrder === true) this.sortByDate(true);
-      if (dateOrder === false) this.sortByDate(false);
-    } else {
+    if (viewOrder !== undefined) this.sortByViews(viewOrder);
+    if (dateOrder !== undefined) this.sortByDate(dateOrder);
+    else {
       this.mockResponse.items.forEach((elem) => {
         this.searchResults.push(elem);
       });

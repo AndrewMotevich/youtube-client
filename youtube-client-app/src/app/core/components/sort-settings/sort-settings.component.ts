@@ -1,5 +1,5 @@
 import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FilterSearchType } from 'src/app/youtube/models/filter-search.model';
+import { FilterSearchType } from '../../../youtube/models/filter-search.model';
 
 @Component({
   selector: 'app-sort-settings',

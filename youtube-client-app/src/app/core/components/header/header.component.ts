@@ -13,9 +13,16 @@ export default class HeaderComponent implements OnInit {
 
   @Output() filterEvent = new EventEmitter<FilterSearchType>();
 
+  isOn = false;
+
   constructor(public loginService: LoginService, private router: Router) {}
 
-  isOn = false;
+  ngOnInit(): void {
+    if (localStorage.getItem('login') === 'true') {
+      this.loginService.setIsLogin(true);
+      this.router.navigate(['/main']);
+    }
+  }
 
   addNewFilter(value: FilterSearchType) {
     this.filterEvent.emit(value);
@@ -29,18 +36,11 @@ export default class HeaderComponent implements OnInit {
     this.newItemEvent.emit(searchQuery);
   }
 
-  showHide() {
-    this.isOn = this.isOn ? (this.isOn = false) : (this.isOn = true);
+  onSettingsButtonClick() {
+    this.isOn = !this.isOn;
   }
 
   logOut() {
     this.loginService.setIsLogin(false);
-  }
-
-  ngOnInit(): void {
-    if (localStorage.getItem('login') === 'true') {
-      this.loginService.setIsLogin(true);
-      this.router.navigate(['/main']);
-    }
   }
 }

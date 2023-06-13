@@ -14,8 +14,8 @@ type Snippet = {
   thumbnails: {
     [key: string]: {
       url: string;
-      width: string;
-      height: string;
+      width: number;
+      height: number;
     };
   };
   channelTitle: string;

@@ -16,6 +16,8 @@ import LoginService from '../../services/login.service';
   styleUrls: ['./login-form.component.scss'],
 })
 export default class LoginFormComponent {
+  hide = true;
+
   loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
@@ -57,6 +59,4 @@ export default class LoginFormComponent {
       return !passwordValid ? { passwordStrength: true } : null;
     };
   }
-
-  hide = true;
 }
