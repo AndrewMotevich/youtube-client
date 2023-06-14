@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { RouterModule, Routes, RouterLink } from '@angular/router';
 import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page.component';
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
-import IsLoggedInGuard from './auth/guards/is-logged-in.guard';
+import { IsLoggedInFunctionGuard } from './auth/guards/is-logged-in.guard';
 import AdminPageComponent from './auth/pages/admin-page/admin-page.component';
 
 const routes: Routes = [
@@ -14,7 +14,7 @@ const routes: Routes = [
       import('./youtube/pages/main-page/main-page.module').then(
         (m) => m.default
       ),
-    canActivate: [IsLoggedInGuard],
+    canActivate: [IsLoggedInFunctionGuard],
   },
   {
     path: 'detailed/:id',
@@ -22,7 +22,7 @@ const routes: Routes = [
       import('./youtube/pages/detailed-page/detailed-page.module').then(
         (m) => m.default
       ),
-    canActivate: [IsLoggedInGuard],
+    canActivate: [IsLoggedInFunctionGuard],
   },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent },

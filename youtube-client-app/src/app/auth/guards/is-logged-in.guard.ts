@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { Injectable, inject } from '@angular/core';
 
 import { CanActivate } from '@angular/router';
 import LoginService from '../services/login.service';
@@ -13,3 +13,8 @@ export default class IsLoggedInGuard implements CanActivate {
     return this.loginService.getIsLogin();
   }
 }
+
+export const IsLoggedInFunctionGuard = () => {
+  const loginService = inject(LoginService);
+  return loginService.getIsLogin;
+};
