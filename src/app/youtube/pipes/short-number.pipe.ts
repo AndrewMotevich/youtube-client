@@ -2,17 +2,18 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'shortNumber',
+  standalone: true,
 })
 export default class ShortNumberPipe implements PipeTransform {
   public transform(value: string | undefined): string | null {
     const number = Number(value);
-    if (Number.isNaN(number)) return null; // will only work value is a number
+    if (Number.isNaN(number)) return null;
     if (number === null) return null;
     if (number === undefined) return null;
     if (number === 0) return null;
     let abs = Math.abs(number);
     const rounder = 10 ** 1;
-    const isNegative = number < 0; // will also work for Negetive numbers
+    const isNegative = number < 0;
     let key = '';
 
     const powers = [

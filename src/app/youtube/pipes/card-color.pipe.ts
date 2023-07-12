@@ -2,6 +2,7 @@ import { Pipe, PipeTransform } from '@angular/core';
 
 @Pipe({
   name: 'cardColor',
+  standalone: true,
 })
 export default class CardColorPipe implements PipeTransform {
   public transform(value: string | undefined): string | null {

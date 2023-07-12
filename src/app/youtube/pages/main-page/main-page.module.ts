@@ -9,7 +9,8 @@ import MainPageComponent from './main-page.component';
 
 import CardFilterPipe from '../../pipes/card-filter.pipe';
 import MainRoutingModule from './main-routing.module';
-import PipesModule from '../pipes/pipes.module';
+import CardColorPipe from '../../pipes/card-color.pipe';
+import ShortNumberPipe from '../../pipes/short-number.pipe';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import PipesModule from '../pipes/pipes.module';
     MatCardModule,
     MatProgressBarModule,
     MainRoutingModule,
-    PipesModule,
+    CardColorPipe,
+    ShortNumberPipe,
   ],
   exports: [],
 })
