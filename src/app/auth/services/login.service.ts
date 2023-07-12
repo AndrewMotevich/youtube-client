@@ -6,11 +6,11 @@ import { Injectable } from '@angular/core';
 export default class LoginService {
   private isLogin = false;
 
-  getIsLogin(): boolean {
+  public getIsLogin(): boolean {
     return this.isLogin;
   }
 
-  setIsLogin(value: boolean) {
+  public setIsLogin(value: boolean) {
     this.isLogin = value;
     localStorage.setItem('login', `${value}`);
   }

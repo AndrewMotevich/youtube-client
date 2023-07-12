@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'arrowIncDec',
 })
 export default class ArrowIncDecPipe implements PipeTransform {
-  transform(value: boolean | undefined): string {
+  public transform(value: boolean | undefined): string {
     if (value === undefined) return '';
     return value ? '↑' : '↓';
   }
