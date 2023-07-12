@@ -7,5 +7,9 @@ import FilteredResultServiceService from '../../services/filtered-result-service
   styleUrls: ['./main-page.component.scss'],
 })
 export default class MainPageComponent {
-  constructor(public filteredResultService: FilteredResultServiceService) {}
+  constructor(private filteredResultService: FilteredResultServiceService) {}
+
+  public getFilterObj() {
+    return this.filteredResultService.getFilterObj();
+  }
 }

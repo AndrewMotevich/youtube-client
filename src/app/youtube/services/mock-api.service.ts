@@ -9,7 +9,7 @@ import { ItemObj } from '../models/search-response.model';
   providedIn: 'root',
 })
 export default class MockApiService {
-  public responseObject = response;
+  private responseObject = response;
 
   public getItemById(id: string): Observable<ItemObj> {
     const item = new Observable<ItemObj>((subscriber) => {

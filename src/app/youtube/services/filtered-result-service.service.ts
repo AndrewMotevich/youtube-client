@@ -5,7 +5,7 @@ import { IFilterSearchType } from '../models/filter-search.model';
   providedIn: 'root',
 })
 export default class FilteredResultServiceService {
-  public filterObj: IFilterSearchType = {
+  private filterObj: IFilterSearchType = {
     viewOrder: undefined,
     dateOrder: undefined,
     queryString: undefined,
@@ -13,5 +13,9 @@ export default class FilteredResultServiceService {
 
   public setFilterObj(value: IFilterSearchType) {
     this.filterObj = value;
+  }
+
+  public getFilterObj() {
+    return this.filterObj;
   }
 }

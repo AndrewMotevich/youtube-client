@@ -7,7 +7,7 @@ import SearchResultsComponent from '../../components/search-results/search-resul
 import SearchItemComponent from '../../components/search-item/search-item.component';
 import MainPageComponent from './main-page.component';
 
-import CardFilterPipe from '../../pipes/card-filter.pipe';
+import CardFilterPipe from '../../pipes/card-search-filter.pipe';
 import MainRoutingModule from './main-routing.module';
 import CardColorPipe from '../../pipes/card-color.pipe';
 import ShortNumberPipe from '../../pipes/short-number.pipe';
