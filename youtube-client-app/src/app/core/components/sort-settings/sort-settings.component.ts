@@ -1,21 +1,28 @@
-import { Component, EventEmitter, OnInit, Output } from '@angular/core';
-import { FilterSearchType } from '../../../youtube/models/filter-search.model';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  EventEmitter,
+  OnInit,
+  Output,
+} from '@angular/core';
+import { IFilterSearchType } from '../../../youtube/models/filter-search.model';
 
 @Component({
   selector: 'app-sort-settings',
   templateUrl: './sort-settings.component.html',
   styleUrls: ['./sort-settings.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SortSettingsComponent implements OnInit {
-  @Output() filterEmitter = new EventEmitter<FilterSearchType>();
+  @Output() public filterEmitter = new EventEmitter<IFilterSearchType>();
 
-  viewSort: boolean | undefined = undefined;
+  public viewSort: boolean | undefined = undefined;
 
-  dateSort: boolean | undefined = undefined;
+  public dateSort: boolean | undefined = undefined;
 
-  querySort: string | undefined;
+  public querySort: string | undefined;
 
-  ngOnInit() {
+  public ngOnInit() {
     this.filterEmitter.emit({
       viewOrder: this.viewSort,
       dateOrder: this.dateSort,
@@ -23,7 +30,7 @@ export default class SortSettingsComponent implements OnInit {
     });
   }
 
-  setViewSort() {
+  public setViewSort() {
     this.dateSort = undefined;
     if (this.viewSort === undefined) {
       this.viewSort = true;
@@ -37,7 +44,7 @@ export default class SortSettingsComponent implements OnInit {
     });
   }
 
-  setDateSort() {
+  public setDateSort() {
     this.viewSort = undefined;
     if (this.dateSort === undefined) {
       this.dateSort = true;
@@ -51,7 +58,7 @@ export default class SortSettingsComponent implements OnInit {
     });
   }
 
-  setQuery(event: Event) {
+  public setQuery(event: Event) {
     event.preventDefault();
     this.querySort = (event.target as HTMLInputElement).value;
     this.filterEmitter.emit({

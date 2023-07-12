@@ -14,7 +14,7 @@ p {
 .hide {
   display: none;
 }
-.header__wrapper {
+.header-wrapper {
   max-width: 670px;
   width: 100%;
   display: flex;
@@ -22,7 +22,7 @@ p {
   justify-content: space-between;
 }
 
-.search__wrapper {
+.search-wrapper {
   max-width: 570px;
   width: 100%;
   display: flex;
@@ -63,7 +63,7 @@ p {
   }
 }
 
-.user__wrapper {
+.user-wrapper {
   cursor: pointer;
   display: flex;
   justify-content: center;

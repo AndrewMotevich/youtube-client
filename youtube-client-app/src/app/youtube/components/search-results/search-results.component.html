@@ -1,4 +1,5 @@
 <section class="search-result__wrapper">
-  <app-search-item *ngFor="let item of searchResults | cardFilter:filterObject.queryString; index as i"
-    [item]="searchResults[i]"></app-search-item>
+  <app-search-item
+    *ngFor="let item of searchResults | cardFilter:filterObject.queryString; index as index"
+    [item]="searchResults[index]"></app-search-item>
 </section>

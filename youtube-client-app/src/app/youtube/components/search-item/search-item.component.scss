@@ -11,7 +11,7 @@
   justify-content: space-around;
   align-items: center;
 }
-.search-item__img {
+.search-item-img {
   width: 223px;
   height: 123px;
 }
@@ -40,14 +40,16 @@
   }
 }
 
-.search-item__title {
+.search-item-title {
+  width: 80%;
   font-size: 20px;
   color: #4f4f4f;
-  text-align: end;
-  margin: 0 40px 10px 10px;
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
 }
 
-.search-item__button {
+.search-item-button {
   cursor: pointer;
   width: 120px;
   height: 32px;

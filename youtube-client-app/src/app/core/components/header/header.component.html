@@ -1,25 +1,46 @@
 <header>
-  <div class="header__wrapper">
-    <div class="search__wrapper">
-      <a routerLink="/"><img src="../../../assets/logo.png" alt="logo"></a>
+  <div class="header-wrapper">
+    <div class="search-wrapper">
+      <a routerLink="/">
+        <img
+          src="../../../assets/logo.png"
+          alt="logo">
+      </a>
       <form>
-        <input class="input-search" placeholder="What do you want to find out?" #searchInput
-          (keydown.enter)="addNewItem($event)">
-        <button class="search-button" (click)="addNewItem($event, searchInput.value)">search</button>
+        <input
+          class="input-search"
+          placeholder="What do you want to find out?"
+          (keydown.enter)="addNewItem($event)"
+          #searchInput>
+        <button
+          class="search-button"
+          (click)="addNewItem($event, searchInput.value)">
+          search
+        </button>
       </form>
-      <div class="settings-button" (click)="onSettingsButtonClick()">
-        <img src="../../../assets/Vector.svg" alt="settings">
+      <div
+        class="settings-button"
+        (click)="onSettingsButtonClick()">
+        <img
+          src="../../../assets/Vector.svg"
+          alt="settings">
       </div>
     </div>
-    <a routerLink="/login" (click)="logOut()">
-      <div class="user__wrapper">
-        <p>{{loginService.getIsLogin() ? 'LogOut' : 'LogIn'}}</p>
+    <a
+      routerLink="/login"
+      (click)="logOut()">
+      <div class="user-wrapper">
+        <p>{{getIsLogin() ? 'LogOut' : 'LogIn'}}</p>
         <div class="user-button">
-          <img src="../../../assets/Subtract.svg" alt="user">
+          <img
+            src="../../../assets/Subtract.svg"
+            alt="user">
         </div>
       </div>
     </a>
   </div>
 </header>
-<app-sort-settings *ngIf="isOn" (filterEmitter)="addNewFilter($event)"></app-sort-settings>
+<app-sort-settings
+  *ngIf="showSettings"
+  (filterEmitter)="addNewFilter($event)"></app-sort-settings>
 <router-outlet></router-outlet>

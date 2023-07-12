@@ -16,6 +16,19 @@
         "airbnb-typescript/base"
       ],
       "rules": {
+        "@typescript-eslint/explicit-member-accessibility": [
+          "error",
+          {
+            "accessibility": "explicit",
+            "overrides": {
+              "accessors": "explicit",
+              "constructors": "no-public",
+              "methods": "explicit",
+              "properties": "explicit",
+              "parameterProperties": "explicit"
+            }
+          }
+        ],
         "object-curly-newline": "off",
         "function-paren-newline": "off",
         "comma-dangle": "off",

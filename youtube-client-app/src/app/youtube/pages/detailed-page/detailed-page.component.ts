@@ -8,5 +8,5 @@ import { SearchResponse } from '../../models/search-response.model';
   styleUrls: ['./detailed-page.component.scss'],
 })
 export default class DetailedPageComponent {
-  objArray = response as unknown as SearchResponse;
+  public objArray = response as unknown as SearchResponse;
 }

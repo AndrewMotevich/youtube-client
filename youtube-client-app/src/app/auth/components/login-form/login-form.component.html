@@ -32,10 +32,8 @@
     <mat-error *ngIf="loginForm.controls.password.hasError('required')">You mast enter a value</mat-error>
     <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">Min length 8</mat-error>
     <mat-error *ngIf="loginForm.controls.password.hasError('passwordStrength')">
-      Your
-      password must have lower case,
-      upper case, special characters
-      and numeric characters.
+      Password must have lower/upper case,
+      special and numeric characters
     </mat-error>
   </mat-form-field>
 

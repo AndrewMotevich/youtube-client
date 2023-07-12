@@ -1,26 +1,43 @@
 <section style="width: 263px;">
   <mat-card class="search-item">
-    <img class="search-item__img" src={{img}} alt="card-img">
+    <img
+      class="search-item-img"
+      src="{{img}}"
+      alt="card-img">
     <div class="item-info">
-      <div class="item-info__item">
-        <img src="../../../assets/icons/viewed.png" alt="viewed">
-        {{viewed | shortNumber}}
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/viewed.png"
+          alt="viewed">
+        {{item?.statistics?.viewCount| shortNumber}}
       </div>
-      <div class="item-info__item">
-        <img src="../../../assets/icons/liked.png" alt="like">
-        {{like | shortNumber}}
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/liked.png"
+          alt="like">
+        {{item?.statistics?.likeCount| shortNumber}}
       </div>
-      <div class="item-info__item">
-        <img src="../../../assets/icons/dislike.png" alt="dislike">
-        {{dislike | shortNumber}}
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/dislike.png"
+          alt="dislike">
+        {{item?.statistics?.dislikeCount| shortNumber}}
       </div>
-      <div class="item-info__item">
-        <img src="../../../assets/icons/Group 9.png" alt="copy">
-        {{copy | shortNumber}}
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/copy.png"
+          alt="copy">
+        {{item?.statistics?.commentCount | shortNumber}}
       </div>
     </div>
-    <p class="search-item__title">{{title}}</p>
-    <a routerLink="/detailed/{{id}}"><button class="search-item__button" mat-button>more...</button></a>
+    <p class="search-item-title">{{item?.snippet?.title}}</p>
+    <a routerLink="/detailed/{{item?.id}}">
+      <button
+        class="search-item-button"
+        mat-button>
+        more...
+      </button>
+    </a>
   </mat-card>
-  <div class="footer-color  {{published | cardColor}}"></div>
+  <div class="footer-color  {{item?.snippet?.publishedAt | cardColor}}"></div>
 </section>

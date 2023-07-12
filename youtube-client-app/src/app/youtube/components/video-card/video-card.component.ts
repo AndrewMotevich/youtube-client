@@ -9,55 +9,29 @@ import MockApiService from '../../services/mock-api.service';
   styleUrls: ['./video-card.component.scss'],
 })
 export default class VideoCardComponent implements OnInit {
-  options: Intl.DateTimeFormatOptions = {
+  private options: Intl.DateTimeFormatOptions = {
     weekday: 'long',
     year: 'numeric',
     month: 'long',
     day: 'numeric',
   };
 
-  enFormatDate?: string;
+  public videoItem!: ItemObj;
 
-  searchItem?: ItemObj;
+  public enFormatDate!: string;
 
-  date?: string = '';
+  public img!: string;
 
-  description?: string = '';
-
-  title?: string = '';
-
-  img?: string = '';
-
-  viewed?: string = '';
-
-  like?: string = '';
-
-  dislike?: string = '';
-
-  copy?: string = '';
-
-  published?: string = '';
-
-  parseDate?: number;
+  public parseDate!: number;
 
   constructor(private route: ActivatedRoute, private mockApi: MockApiService) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.mockApi.getItemById(id as string).subscribe((obj) => {
-      this.searchItem = obj;
-
-      this.date = this.searchItem?.snippet.publishedAt;
-      this.description = this.searchItem?.snippet.description;
-      this.title = this.searchItem?.snippet.title;
-      this.img = this.searchItem?.snippet.thumbnails['maxres'].url;
-      this.viewed = this.searchItem?.statistics.viewCount;
-      this.like = this.searchItem?.statistics.likeCount;
-      this.dislike = this.searchItem?.statistics.dislikeCount;
-      this.copy = this.searchItem?.statistics.commentCount;
-      this.published = this.searchItem?.snippet.publishedAt;
-      this.parseDate =
-        this.date !== undefined ? Date.parse(this.date) : undefined;
+    this.mockApi.getItemById(id as string).subscribe((videoItem) => {
+      this.videoItem = videoItem;
+      this.img = videoItem?.snippet.thumbnails['maxres'].url;
+      this.parseDate = Date.parse(videoItem.snippet.publishedAt);
       this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
         this.parseDate
       );

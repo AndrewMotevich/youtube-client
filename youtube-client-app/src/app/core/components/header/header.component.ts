@@ -1,34 +1,45 @@
-import { Component, Output, EventEmitter, OnInit } from '@angular/core';
+import {
+  Component,
+  Output,
+  EventEmitter,
+  OnInit,
+  ChangeDetectionStrategy,
+} from '@angular/core';
 import { Router } from '@angular/router';
 import LoginService from 'src/app/auth/services/login.service';
-import { FilterSearchType } from 'src/app/youtube/models/filter-search.model';
+import { IFilterSearchType } from 'src/app/youtube/models/filter-search.model';
 
 @Component({
   selector: 'app-header',
   templateUrl: './header.component.html',
   styleUrls: ['./header.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class HeaderComponent implements OnInit {
-  @Output() newItemEvent = new EventEmitter<string>();
+  @Output() public newItemEvent = new EventEmitter<string>();
 
-  @Output() filterEvent = new EventEmitter<FilterSearchType>();
+  @Output() public filterEvent = new EventEmitter<IFilterSearchType>();
 
-  isOn = false;
+  public showSettings = false;
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
-  ngOnInit(): void {
+  public ngOnInit(): void {
     if (localStorage.getItem('login') === 'true') {
       this.loginService.setIsLogin(true);
       this.router.navigate(['/main']);
     }
   }
 
-  addNewFilter(value: FilterSearchType) {
+  public getIsLogin() {
+    return this.loginService.getIsLogin();
+  }
+
+  public addNewFilter(value: IFilterSearchType) {
     this.filterEvent.emit(value);
   }
 
-  addNewItem(
+  public addNewItem(
     event: Event,
     searchQuery = (event.target as HTMLInputElement).value
   ) {
@@ -36,11 +47,11 @@ export default class HeaderComponent implements OnInit {
     this.newItemEvent.emit(searchQuery);
   }
 
-  onSettingsButtonClick() {
-    this.isOn = !this.isOn;
+  public onSettingsButtonClick() {
+    this.showSettings = !this.showSettings;
   }
 
-  logOut() {
+  public logOut() {
     this.loginService.setIsLogin(false);
   }
 }

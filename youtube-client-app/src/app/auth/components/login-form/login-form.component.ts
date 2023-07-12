@@ -37,7 +37,7 @@ export default class LoginFormComponent {
   }
 
   // eslint-disable-next-line class-methods-use-this
-  createPasswordStrengthValidator(): ValidatorFn {
+  private createPasswordStrengthValidator(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const { value } = control;
 

@@ -1,5 +1,4 @@
 <div class="flex-column">
-  <app-search-results *ngIf="showResultService.showResult"
-    [filterObject]="filteredResultService.filterObj"></app-search-results>
+  <app-search-results [filterObject]="filteredResultService.filterObj"></app-search-results>
 </div>
 <router-outlet></router-outlet>

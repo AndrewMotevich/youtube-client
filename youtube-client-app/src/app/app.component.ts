@@ -1,5 +1,4 @@
 import { Component } from '@angular/core';
-import ShowResultsServiceService from 'src/app/core/services/show-results-service.service';
 import FilteredResultServiceService from './youtube/services/filtered-result-service.service';
 
 @Component({
@@ -8,8 +7,5 @@ import FilteredResultServiceService from './youtube/services/filtered-result-ser
   styleUrls: ['./app.component.scss'],
 })
 export default class AppComponent {
-  constructor(
-    public showResultService: ShowResultsServiceService,
-    public filteredResultService: FilteredResultServiceService
-  ) {}
+  constructor(public filteredResultService: FilteredResultServiceService) {}
 }

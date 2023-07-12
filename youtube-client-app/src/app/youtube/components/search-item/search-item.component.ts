@@ -7,42 +7,16 @@ import { ItemObj } from '../../models/search-response.model';
   styleUrls: ['./search-item.component.scss'],
 })
 export default class SearchItemComponent implements OnInit {
-  @Input() item?: ItemObj;
+  @Input() public item?: ItemObj;
 
-  id?: string;
+  public img?: string;
 
-  date?: string = '';
+  public parseDate?: number;
 
-  title?: string = '';
-
-  img?: string = '';
-
-  viewed?: string = '';
-
-  like?: string = '';
-
-  dislike?: string = '';
-
-  copy?: string = '';
-
-  published?: string = '';
-
-  searchItem?: ItemObj;
-
-  parseDate?: number;
-
-  ngOnInit(): void {
-    this.searchItem = this.item;
-    this.id = this.searchItem?.id;
-    this.date = this.searchItem?.snippet.publishedAt;
-    this.title = this.searchItem?.snippet.title;
-    this.img = this.searchItem?.snippet.thumbnails['medium'].url;
-    this.viewed = this.searchItem?.statistics.viewCount;
-    this.like = this.searchItem?.statistics.likeCount;
-    this.dislike = this.searchItem?.statistics.dislikeCount;
-    this.copy = this.searchItem?.statistics.commentCount;
-    this.published = this.searchItem?.snippet.publishedAt;
-    this.parseDate =
-      this.date !== undefined ? Date.parse(this.date) : undefined;
+  public ngOnInit(): void {
+    this.img = this.item?.snippet?.thumbnails['medium'].url || '';
+    this.parseDate = this.item?.snippet.publishedAt
+      ? Date.parse(this.item?.snippet.publishedAt)
+      : undefined;
   }
 }

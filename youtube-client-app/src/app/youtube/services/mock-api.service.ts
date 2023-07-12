@@ -9,9 +9,9 @@ import { ItemObj } from '../models/search-response.model';
   providedIn: 'root',
 })
 export default class MockApiService {
-  responseObject = response;
+  public responseObject = response;
 
-  getItemById(id: string): Observable<ItemObj> {
+  public getItemById(id: string): Observable<ItemObj> {
     const item = new Observable<ItemObj>((subscriber) => {
       this.responseObject.items.forEach((elem) => {
         subscriber.next(elem as unknown as ItemObj);

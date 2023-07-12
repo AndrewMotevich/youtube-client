@@ -4,7 +4,7 @@ import { Pipe, PipeTransform } from '@angular/core';
   name: 'shortNumber',
 })
 export default class ShortNumberPipe implements PipeTransform {
-  transform(value: string | undefined): string | null {
+  public transform(value: string | undefined): string | null {
     const number = Number(value);
     if (Number.isNaN(number)) return null; // will only work value is a number
     if (number === null) return null;

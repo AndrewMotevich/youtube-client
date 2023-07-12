@@ -1,9 +1,16 @@
-export type ItemObj = {
+export interface ItemObj {
   kind: string;
   etag: string;
   id: string;
   snippet: Snippet;
   statistics: Statistics;
+}
+
+export type SearchResponse = {
+  kind: string;
+  etag: string;
+  pageInfo: { totalResults: number; resultsPerPage: number };
+  items: ItemObj[];
 };
 
 type Snippet = {
@@ -35,11 +42,4 @@ type Statistics = {
   dislikeCount: string;
   favoriteCount: string;
   commentCount: string;
-};
-
-export type SearchResponse = {
-  kind: string;
-  etag: string;
-  pageInfo: { totalResults: number; resultsPerPage: number };
-  items: ItemObj[];
 };

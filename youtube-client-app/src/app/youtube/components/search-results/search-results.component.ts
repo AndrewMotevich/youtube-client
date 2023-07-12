@@ -1,7 +1,7 @@
 import { Component, Input, OnChanges } from '@angular/core';
 import { ItemObj, SearchResponse } from '../../models/search-response.model';
 import response from './mock-results/results.json';
-import { FilterSearchType } from '../../models/filter-search.model';
+import { IFilterSearchType } from '../../models/filter-search.model';
 
 @Component({
   selector: 'app-search-results',
@@ -9,106 +9,47 @@ import { FilterSearchType } from '../../models/filter-search.model';
   styleUrls: ['./search-results.component.scss'],
 })
 export default class SearchResultsComponent implements OnChanges {
-  @Input() filterObject: FilterSearchType = {
-    viewOrder: undefined,
-    dateOrder: undefined,
-    queryString: undefined,
-  };
+  @Input() public filterObject!: IFilterSearchType;
 
-  mockResponse: SearchResponse = response;
+  public searchResults: ItemObj[] = [];
 
-  searchResults: ItemObj[] = [];
+  private mockResponse: SearchResponse = response;
 
-  ngOnChanges(): void {
+  public ngOnChanges(): void {
     this.filterResponse();
   }
 
-  filterResponse() {
-    const { viewOrder, dateOrder } = this.filterObject;
-    if (viewOrder !== undefined) this.sortByViews(viewOrder);
-    if (dateOrder !== undefined) this.sortByDate(dateOrder);
-    else {
-      this.mockResponse.items.forEach((elem) => {
-        this.searchResults.push(elem);
-      });
+  private filterResponse() {
+    if (this.filterObject.viewOrder !== undefined) {
+      this.searchResults = this.sortByViews(this.filterObject.viewOrder);
     }
+    if (this.filterObject.dateOrder !== undefined) {
+      this.searchResults = this.sortByDate(this.filterObject.dateOrder);
+    } else this.searchResults = this.mockResponse.items;
   }
 
-  sortByViews(order: boolean) {
-    this.searchResults.length = 0;
-    if (order === true) {
-      this.mockResponse.items
-        .sort((a, b) => {
-          if (Number(a.statistics.viewCount) > Number(b.statistics.viewCount)) {
-            return 1;
-          }
-          if (Number(a.statistics.viewCount) < Number(b.statistics.viewCount)) {
-            return -1;
-          }
-          return 0;
-        })
-        .forEach((elem) => {
-          this.searchResults.push(elem);
-        });
-    } else if (order === false) {
-      this.mockResponse.items
-        .sort((a, b) => {
-          if (Number(a.statistics.viewCount) < Number(b.statistics.viewCount)) {
-            return 1;
-          }
-          if (Number(a.statistics.viewCount) > Number(b.statistics.viewCount)) {
-            return -1;
-          }
-          return 0;
-        })
-        .forEach((elem) => {
-          this.searchResults.push(elem);
-        });
+  private sortByViews(order: boolean) {
+    if (order) {
+      return this.mockResponse.items.sort(
+        (a, b) =>
+          Number(a.statistics.viewCount) - Number(b.statistics.viewCount)
+      );
     }
+    return this.mockResponse.items.sort(
+      (a, b) => Number(b.statistics.viewCount) - Number(a.statistics.viewCount)
+    );
   }
 
-  sortByDate(order: boolean) {
-    this.searchResults.length = 0;
-    if (order === true) {
-      this.mockResponse.items
-        .sort((a, b) => {
-          if (
-            Date.parse(a.snippet.publishedAt) >
-            Date.parse(b.snippet.publishedAt)
-          ) {
-            return 1;
-          }
-          if (
-            Date.parse(a.snippet.publishedAt) <
-            Date.parse(b.snippet.publishedAt)
-          ) {
-            return -1;
-          }
-          return 0;
-        })
-        .forEach((elem) => {
-          this.searchResults.push(elem);
-        });
-    } else if (order === false) {
-      this.mockResponse.items
-        .sort((a, b) => {
-          if (
-            Date.parse(a.snippet.publishedAt) <
-            Date.parse(b.snippet.publishedAt)
-          ) {
-            return 1;
-          }
-          if (
-            Date.parse(a.snippet.publishedAt) >
-            Date.parse(b.snippet.publishedAt)
-          ) {
-            return -1;
-          }
-          return 0;
-        })
-        .forEach((elem) => {
-          this.searchResults.push(elem);
-        });
+  private sortByDate(order: boolean) {
+    if (order) {
+      return this.mockResponse.items.sort(
+        (a, b) =>
+          Date.parse(a.snippet.publishedAt) - Date.parse(b.snippet.publishedAt)
+      );
     }
+    return this.mockResponse.items.sort(
+      (a, b) =>
+        Date.parse(b.snippet.publishedAt) - Date.parse(a.snippet.publishedAt)
+    );
   }
 }
