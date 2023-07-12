@@ -1,28 +1,49 @@
-<form [formGroup]="loginForm" class="login-form-container" (submit)="changeLogin()">
+<form
+  [formGroup]="loginForm"
+  class="login-form-container"
+  (submit)="submitForm()">
+
   <h2>Login</h2>
+
   <mat-hint>Login</mat-hint>
   <mat-form-field appearance="fill">
-    <input matInput formControlName="email">
+    <input
+      matInput
+      formControlName="email">
     <mat-error *ngIf="loginForm.controls.email.hasError('required')">You mast enter a value</mat-error>
     <mat-error *ngIf="loginForm.controls.email.hasError('email')">Invalid email</mat-error>
   </mat-form-field>
 
   <mat-hint>Password</mat-hint>
   <mat-form-field appearance="fill">
-    <input matInput [type]="hide ? 'password' : 'text'" formControlName="password">
-    <button mat-icon-button matSuffix (click)="hide = !hide" [attr.aria-label]="'Hide password'"
+    <input
+      matInput
+      [type]="hide ? 'password' : 'text'"
+      formControlName="password">
+    <button
+      mat-icon-button
+      matSuffix
+      (click)="hide = !hide"
       [attr.aria-pressed]="hide">
-      <mat-icon>{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+      <mat-icon>
+        {{hide ? 'visibility_off' : 'visibility'}}
+      </mat-icon>
     </button>
     <mat-error *ngIf="loginForm.controls.password.hasError('required')">You mast enter a value</mat-error>
     <mat-error *ngIf="loginForm.controls.password.hasError('minlength')">Min length 8</mat-error>
-    <mat-error
-      *ngIf="!loginForm.controls.password.hasError('minlength') && loginForm.controls.password.hasError('passwordStrength')">Your
+    <mat-error *ngIf="loginForm.controls.password.hasError('passwordStrength')">
+      Your
       password must have lower case,
       upper case, special characters
-      and numeric characters.</mat-error>
+      and numeric characters.
+    </mat-error>
   </mat-form-field>
 
-  <button class="btn" mat-raised-button color="primary">Login</button>
+  <button
+    class="btn"
+    mat-raised-button
+    color="primary">
+    Login
+  </button>
 
 </form>

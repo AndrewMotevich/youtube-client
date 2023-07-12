@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 import {
   AbstractControl,
   FormControl,
@@ -7,14 +7,16 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
+import { URL_VALIDATION_REGEX } from '../../constants/constants';
 
 @Component({
   selector: 'app-create-card',
   templateUrl: './create-card.component.html',
   styleUrls: ['./create-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class CreateCardComponent {
-  createCardForm = new FormGroup({
+  public createCardForm = new FormGroup({
     title: new FormControl('', [
       Validators.required,
       Validators.minLength(3),
@@ -23,15 +25,11 @@ export default class CreateCardComponent {
     description: new FormControl('', [Validators.maxLength(255)]),
     img: new FormControl('', [
       Validators.required,
-      Validators.pattern(
-        /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gi
-      ),
+      Validators.pattern(URL_VALIDATION_REGEX),
     ]),
     videoLink: new FormControl('', [
       Validators.required,
-      Validators.pattern(
-        /https?:\/\/(www\.)?[-a-zA-Z0-9@:%._+~#=]{1,256}\.[a-zA-Z0-9()]{1,6}\b([-a-zA-Z0-9()@:%_+.~#?&//=]*)/gi
-      ),
+      Validators.pattern(URL_VALIDATION_REGEX),
     ]),
     creationDate: new FormControl('', [
       Validators.required,
@@ -40,7 +38,7 @@ export default class CreateCardComponent {
   });
 
   // eslint-disable-next-line class-methods-use-this
-  validateDate(): ValidatorFn {
+  private validateDate(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const date = control.value;
       if (!date) {
@@ -50,9 +48,8 @@ export default class CreateCardComponent {
     };
   }
 
-  submit() {
-    if (this.createCardForm.valid) {
-      console.log('submit:', this.createCardForm.value);
-    }
+  public submit() {
+    if (!this.createCardForm.valid) return;
+    console.log('submit:', this.createCardForm.value);
   }
 }

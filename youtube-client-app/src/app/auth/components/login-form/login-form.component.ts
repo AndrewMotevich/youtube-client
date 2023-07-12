@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import { Router } from '@angular/router';
 import {
   AbstractControl,
@@ -14,11 +14,12 @@ import LoginService from '../../services/login.service';
   selector: 'app-login-form',
   templateUrl: './login-form.component.html',
   styleUrls: ['./login-form.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class LoginFormComponent {
-  hide = true;
+  public hide = true;
 
-  loginForm = new FormGroup({
+  public loginForm = new FormGroup({
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [
       Validators.required,
@@ -27,13 +28,12 @@ export default class LoginFormComponent {
     ]),
   });
 
-  constructor(public loginService: LoginService, private router: Router) {}
+  constructor(private loginService: LoginService, private router: Router) {}
 
-  changeLogin() {
-    if (this.loginForm.valid) {
-      this.loginService.setIsLogin(true);
-      this.router.navigate(['/main']);
-    }
+  public submitForm() {
+    if (!this.loginForm.valid) return;
+    this.loginService.setIsLogin(true);
+    this.router.navigate(['/main']);
   }
 
   // eslint-disable-next-line class-methods-use-this
