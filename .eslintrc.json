@@ -16,6 +16,8 @@
         "airbnb-typescript/base"
       ],
       "rules": {
+        "indent": "off",
+        "@typescript-eslint/indent": "off",
         "@typescript-eslint/explicit-member-accessibility": [
           "error",
           {
@@ -35,7 +37,10 @@
         "@typescript-eslint/comma-dangle": "off",
         "implicit-arrow-linebreak": "off",
         "operator-linebreak": "off",
-        "class-methods-use-this": ["error", { "exceptMethods": ["transform"] }],
+        "class-methods-use-this": [
+          "error",
+          { "exceptMethods": ["transform", "intercept"] }
+        ],
         "@angular-eslint/directive-selector": [
           "error",
           {

@@ -6,12 +6,16 @@ export interface ItemObj {
   statistics: Statistics;
 }
 
-export type SearchResponse = {
+export type IPreSearchResponse = {
+  items: { id: { videoId: string } }[];
+};
+
+export interface ISearchResponse {
   kind: string;
   etag: string;
   pageInfo: { totalResults: number; resultsPerPage: number };
   items: ItemObj[];
-};
+}
 
 type Snippet = {
   publishedAt: string;
