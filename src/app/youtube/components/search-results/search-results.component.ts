@@ -1,26 +1,23 @@
-import { Component, Input, OnChanges } from '@angular/core';
+import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ItemObj } from '../../models/search-response.model';
-import { IFilterSearchType } from '../../models/filter-search.model';
 import YoutubeApiService from '../../services/youtube-api.service';
+import FilteredResultServiceService from '../../services/filtered-result-service.service';
 
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',
   styleUrls: ['./search-results.component.scss'],
 })
-export default class SearchResultsComponent implements OnChanges {
-  @Input() public filterObject!: IFilterSearchType;
-
+export default class SearchResultsComponent {
   public searchResults: Subject<ItemObj[]> = this.youtubeApi.searchResponse;
 
-  constructor(private youtubeApi: YoutubeApiService) {}
+  public filterObject = this.filterService.getFilterObj();
 
-  // eslint-disable-next-line class-methods-use-this
-  public ngOnChanges(): void {
-    console.log();
-    // this.filterResponse();
-  }
+  constructor(
+    private youtubeApi: YoutubeApiService,
+    private filterService: FilteredResultServiceService
+  ) {}
 
   // private filterResponse() {
   //   if (this.filterObject.viewOrder !== undefined) {

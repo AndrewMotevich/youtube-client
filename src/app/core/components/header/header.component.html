@@ -1,46 +1,42 @@
 <header>
   <div class="header-wrapper">
     <div class="search-wrapper">
+
       <a routerLink="/">
         <img
           src="../../../assets/logo.png"
           alt="logo">
       </a>
+
       <form>
         <input
           class="input-search"
           placeholder="What do you want to find out?"
-          (keydown.enter)="addNewItem($event)"
           #searchInput>
-        <button
-          class="search-button"
-          (click)="addNewItem($event, searchInput.value)">
-          search
-        </button>
+        <button class="search-button">search</button>
       </form>
+
       <div
         class="settings-button"
-        (click)="onSettingsButtonClick()">
+        (click)="settingsButtonHandler()">
         <img
           src="../../../assets/Vector.svg"
           alt="settings">
       </div>
-    </div>
-    <a
-      routerLink="/login"
-      (click)="logOut()">
-      <div class="user-wrapper">
-        <p>{{getIsLogin() ? 'LogOut' : 'LogIn'}}</p>
-        <div class="user-button">
-          <img
-            src="../../../assets/Subtract.svg"
-            alt="user">
+
+      <a
+        routerLink="/login"
+        (click)="logOut()">
+        <div class="user-wrapper">
+          <p>{{getIsLogin() ? 'LogOut' : 'LogIn'}}</p>
+          <div class="user-button">
+            <img
+              src="../../../assets/Subtract.svg"
+              alt="user">
+          </div>
         </div>
-      </div>
-    </a>
+      </a>
+    </div>
+    <app-sort-settings *ngIf="showSettings"></app-sort-settings>
   </div>
 </header>
-<app-sort-settings
-  *ngIf="showSettings"
-  (filterEmitter)="addNewFilter($event)"></app-sort-settings>
-<router-outlet></router-outlet>

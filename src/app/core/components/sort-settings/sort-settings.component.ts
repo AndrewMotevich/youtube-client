@@ -1,11 +1,4 @@
-import {
-  ChangeDetectionStrategy,
-  Component,
-  EventEmitter,
-  OnInit,
-  Output,
-} from '@angular/core';
-import { IFilterSearchType } from '../../../youtube/models/filter-search.model';
+import { ChangeDetectionStrategy, Component } from '@angular/core';
 
 @Component({
   selector: 'app-sort-settings',
@@ -13,22 +6,12 @@ import { IFilterSearchType } from '../../../youtube/models/filter-search.model';
   styleUrls: ['./sort-settings.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class SortSettingsComponent implements OnInit {
-  @Output() public filterEmitter = new EventEmitter<IFilterSearchType>();
-
+export default class SortSettingsComponent {
   public viewSort: boolean | undefined = undefined;
 
   public dateSort: boolean | undefined = undefined;
 
   public querySort: string | undefined;
-
-  public ngOnInit() {
-    this.filterEmitter.emit({
-      viewOrder: this.viewSort,
-      dateOrder: this.dateSort,
-      queryString: this.querySort,
-    });
-  }
 
   public setViewSort() {
     this.dateSort = undefined;
@@ -37,11 +20,6 @@ export default class SortSettingsComponent implements OnInit {
     } else {
       this.viewSort = !this.viewSort;
     }
-    this.filterEmitter.emit({
-      viewOrder: this.viewSort,
-      dateOrder: this.dateSort,
-      queryString: this.querySort,
-    });
   }
 
   public setDateSort() {
@@ -51,20 +29,10 @@ export default class SortSettingsComponent implements OnInit {
     } else {
       this.dateSort = !this.dateSort;
     }
-    this.filterEmitter.emit({
-      viewOrder: this.viewSort,
-      dateOrder: this.dateSort,
-      queryString: this.querySort,
-    });
   }
 
   public setQuery(event: Event) {
     event.preventDefault();
     this.querySort = (event.target as HTMLInputElement).value;
-    this.filterEmitter.emit({
-      viewOrder: this.viewSort,
-      dateOrder: this.dateSort,
-      queryString: this.querySort,
-    });
   }
 }
