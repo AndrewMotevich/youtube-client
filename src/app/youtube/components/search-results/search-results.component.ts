@@ -2,7 +2,7 @@ import { Component } from '@angular/core';
 import { Subject } from 'rxjs';
 import { ItemObj } from '../../models/search-response.model';
 import YoutubeApiService from '../../services/youtube-api.service';
-import FilteredResultServiceService from '../../services/filtered-result-service.service';
+import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
 
 @Component({
   selector: 'app-search-results',

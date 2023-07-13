@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IFilterSearchType } from '../models/filter-search.model';
+import { IFilterSearchType } from '../../youtube/models/filter-search.model';
 
 @Injectable({
   providedIn: 'root',
