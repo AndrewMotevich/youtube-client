@@ -1,5 +1,4 @@
-import { Component, OnInit, ChangeDetectionStrategy } from '@angular/core';
-import { Router } from '@angular/router';
+import { Component, ChangeDetectionStrategy } from '@angular/core';
 import LoginService from 'src/app/auth/services/login.service';
 
 @Component({
@@ -8,20 +7,13 @@ import LoginService from 'src/app/auth/services/login.service';
   styleUrls: ['./header.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class HeaderComponent implements OnInit {
+export default class HeaderComponent {
   public showSettings = false;
 
-  constructor(private loginService: LoginService, private router: Router) {}
-
-  public ngOnInit(): void {
-    if (localStorage.getItem('login') === 'true') {
-      this.loginService.setIsLogin(true);
-      this.router.navigate(['/main']);
-    }
-  }
+  constructor(private loginService: LoginService) {}
 
   public getIsLogin() {
-    return this.loginService.getIsLogin();
+    return this.loginService.getIsLoginObservable();
   }
 
   public settingsButtonHandler() {

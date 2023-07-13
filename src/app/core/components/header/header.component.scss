@@ -67,14 +67,26 @@ p {
 }
 
 .user-wrapper {
-  cursor: pointer;
   display: flex;
   justify-content: center;
   align-items: center;
-
+  p {
+    text-decoration: none;
+    color: #2f80ed;
+    &:hover {
+      cursor: pointer;
+      color: #014094;
+    }
+  }
   .user-button {
     width: 24px;
     height: 24px;
     margin-left: 8px;
+    border-radius: 5px;
+    &:hover {
+      cursor: pointer;
+      background-color: white;
+      box-shadow: 1px 1px 1px #014094;
+    }
   }
 }

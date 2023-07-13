@@ -24,18 +24,20 @@
           alt="settings">
       </div>
 
-      <a
-        routerLink="/login"
-        (click)="logOut()">
+      <div>
         <div class="user-wrapper">
-          <p>{{getIsLogin() ? 'LogOut' : 'LogIn'}}</p>
-          <div class="user-button">
+          <p
+            routerLink="/login"
+            (click)="logOut()">{{(getIsLogin() | async) ? 'LogOut' : 'LogIn'}}</p>
+          <div
+            class="user-button"
+            routerLink="/admin">
             <img
               src="../../../assets/Subtract.svg"
               alt="user">
           </div>
         </div>
-      </a>
+      </div>
     </div>
     <app-sort-settings *ngIf="showSettings"></app-sort-settings>
   </div>

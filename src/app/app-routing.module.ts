@@ -7,14 +7,18 @@ import AdminPageComponent from './auth/pages/admin-page/admin-page.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
-  { path: 'admin', component: AdminPageComponent },
+  {
+    path: 'admin',
+    component: AdminPageComponent,
+    canActivate: [IsLoggedInFunctionGuard],
+  },
   {
     path: 'main',
     loadChildren: () =>
       import('./youtube/pages/main-page/main-page.module').then(
         (m) => m.default
       ),
-    canActivate: [IsLoggedInFunctionGuard],
+    canLoad: [IsLoggedInFunctionGuard],
   },
   {
     path: 'detailed/:id',
