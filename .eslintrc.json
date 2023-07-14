@@ -79,6 +79,13 @@
       "files": ["*.html"],
       "extends": ["plugin:@angular-eslint/template/recommended"],
       "rules": {}
+    },
+    {
+      "files": ["*.ts"],
+      "rules": {
+        "import/no-extraneous-dependencies": "off"
+      },
+      "extends": ["plugin:@ngrx/recommended-requiring-type-checking"]
     }
   ],
   "plugins": ["import"]

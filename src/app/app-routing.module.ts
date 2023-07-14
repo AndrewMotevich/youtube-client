@@ -4,6 +4,7 @@ import NotFoundPageComponent from './youtube/pages/not-found-page/not-found-page
 import LoginPageComponent from './auth/pages/login-page/login-page.component';
 import IsLoggedInFunctionGuard from './auth/guards/is-logged-in.guard';
 import AdminPageComponent from './auth/pages/admin-page/admin-page.component';
+import CounterComponent from './youtube/components/counter-component/counter-component.component';
 
 const routes: Routes = [
   { path: 'login', component: LoginPageComponent },
@@ -28,6 +29,7 @@ const routes: Routes = [
       ),
     canActivate: [IsLoggedInFunctionGuard],
   },
+  { path: 'counter', component: CounterComponent },
   { path: '', redirectTo: '/login', pathMatch: 'full' },
   { path: '**', component: NotFoundPageComponent },
 ];
