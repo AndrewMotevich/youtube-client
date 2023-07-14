@@ -1,5 +1,5 @@
 export interface IFilterSearchType {
-  viewOrder: boolean | undefined;
-  dateOrder: boolean | undefined;
-  queryString: string | undefined;
+  viewOrder: boolean | null;
+  dateOrder: boolean | null;
+  queryString: string | null;
 }

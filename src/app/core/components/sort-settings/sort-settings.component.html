@@ -1,9 +1,9 @@
 <section class="sort-settings">
   <div class="sort-settings-wrapper">
     <p>Sorting by:</p>
-    <a (click)="setDateSort()">date{{dateSort | arrowIncDec}}</a>
+    <a (click)="setDateSort()">date {{(dateSort | arrowIncDec) || ''}}</a>
     <a (click)="setViewSort()">
-      count of views{{viewSort | arrowIncDec}}
+      count of views {{(viewSort | arrowIncDec) || ''}}
     </a>
     <a>by word or sentence</a>
     <input

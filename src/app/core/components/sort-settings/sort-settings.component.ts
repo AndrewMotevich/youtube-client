@@ -1,4 +1,5 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import FilteredResultServiceService from '../../services/filtered-result-service.service';
 
 @Component({
   selector: 'app-sort-settings',
@@ -7,32 +8,42 @@ import { ChangeDetectionStrategy, Component } from '@angular/core';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SortSettingsComponent {
-  public viewSort: boolean | undefined = undefined;
+  public viewSort = this.sortService.getFilterObj().viewOrder;
 
-  public dateSort: boolean | undefined = undefined;
+  public dateSort = this.sortService.getFilterObj().dateOrder;
 
-  public querySort: string | undefined;
+  constructor(private sortService: FilteredResultServiceService) {}
 
   public setViewSort() {
-    this.dateSort = undefined;
-    if (this.viewSort === undefined) {
+    if (this.viewSort === null) {
       this.viewSort = true;
-    } else {
-      this.viewSort = !this.viewSort;
     }
+    this.viewSort = !this.viewSort;
+    this.sortService.setFilterObj({
+      ...this.sortService.getFilterObj(),
+      dateOrder: null,
+      viewOrder: this.viewSort,
+    });
   }
 
   public setDateSort() {
-    this.viewSort = undefined;
-    if (this.dateSort === undefined) {
+    if (this.dateSort === null) {
       this.dateSort = true;
-    } else {
-      this.dateSort = !this.dateSort;
     }
+    this.dateSort = !this.dateSort;
+    this.sortService.setFilterObj({
+      ...this.sortService.getFilterObj(),
+      viewOrder: null,
+      dateOrder: this.dateSort,
+    });
   }
 
   public setQuery(event: Event) {
     event.preventDefault();
-    this.querySort = (event.target as HTMLInputElement).value;
+    const querySort = (event.target as HTMLInputElement).value;
+    this.sortService.setFilterObj({
+      ...this.sortService.getFilterObj(),
+      queryString: querySort,
+    });
   }
 }

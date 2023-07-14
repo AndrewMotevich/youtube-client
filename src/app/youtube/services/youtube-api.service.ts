@@ -23,23 +23,26 @@ export default class YoutubeApiService {
       .append('id', videoIdsArray.join())
       .append('part', 'snippet,statistics');
     return this.http.get<ISearchResponse>(
-      'https://www.googleapis.com/youtube/v3/videos',
+      'https://wwwwww.googleapis.com/youtube/v3/videos',
       {
         params: getVideosHttpParams,
       }
     );
   }
 
-  public getVideoByQueryString(searchQuery = 'angular', maxResult = 12) {
+  public getVideoByQueryString(searchQuery = 'angular', maxResult = 3) {
     const searchHttpParams = new HttpParams()
       .append('type', 'video')
       .append('q', searchQuery)
       .append('maxResults', maxResult.toString());
 
     this.http
-      .get<IPreSearchResponse>('https://www.googleapis.com/youtube/v3/search', {
-        params: searchHttpParams,
-      })
+      .get<IPreSearchResponse>(
+        'https://wwwwww.googleapis.com/youtube/v3/search',
+        {
+          params: searchHttpParams,
+        }
+      )
       .subscribe((searchResponse) => {
         const videosIds = searchResponse.items.map((elem) => elem.id.videoId);
 

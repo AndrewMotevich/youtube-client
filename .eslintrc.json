@@ -39,7 +39,14 @@
         "operator-linebreak": "off",
         "class-methods-use-this": [
           "error",
-          { "exceptMethods": ["transform", "intercept"] }
+          {
+            "exceptMethods": [
+              "transform",
+              "intercept",
+              "sortByViews",
+              "sortByDate"
+            ]
+          }
         ],
         "@angular-eslint/directive-selector": [
           "error",

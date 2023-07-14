@@ -1,7 +1,7 @@
 <section class="search-result__wrapper">
-  <ng-container *ngIf="searchResults | async as results">
+  <ng-container *ngIf="searchResultsObserver | async as results">
     <app-search-item
-      *ngFor="let item of results | cardFilter:filterObject.queryString"
+      *ngFor="let item of results | cardFilter: (filterObjectObserver | async)"
       [item]="item"></app-search-item>
   </ng-container>
 </section>
