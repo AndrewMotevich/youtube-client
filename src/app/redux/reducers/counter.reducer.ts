@@ -1,11 +1,17 @@
 import { createReducer, on } from '@ngrx/store';
-import { increment, decrement, reset } from '../actions/counter.action';
+import {
+  increment,
+  decrement,
+  reset,
+  setCounter,
+} from '../actions/counter.action';
 
 export const initialState = 0;
 
-export const counterReducer = createReducer(
+export const featureReducer = createReducer(
   initialState,
-  on(increment, (state) => state + 1),
-  on(decrement, (state) => state - 1),
-  on(reset, () => 0)
+  on(increment, (state): number => state + 1),
+  on(decrement, (state): number => state - 1),
+  on(reset, (): number => 0),
+  on(setCounter, (state, action): number => action.num)
 );

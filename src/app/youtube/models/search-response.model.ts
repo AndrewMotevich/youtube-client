@@ -40,7 +40,7 @@ type Snippet = {
   defaultAudioLanguage: string;
 };
 
-type Statistics = {
+export type Statistics = {
   viewCount: string;
   likeCount: string;
   dislikeCount: string;
