@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { Observable } from 'rxjs';
+import { Observable, map, combineLatest } from 'rxjs';
 import { IYoutubeCard } from 'src/app/redux/state.model';
 import { Store } from '@ngrx/store';
 import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
 import { getYoutubeCardsFromApi } from 'src/app/redux/actions/youtube-cards.action';
-import YoutubeApiService from '../../services/youtube-api.service';
+import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
 import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
 import { ItemObj } from '../../models/search-response.model';
 
@@ -17,14 +17,25 @@ import { ItemObj } from '../../models/search-response.model';
 export default class SearchResultsComponent {
   public searchResultsObserver?: Observable<IYoutubeCard[]>;
 
+  private youtubeCards$: Observable<IYoutubeCard[]>;
+
+  private customYoutubeCards$: Observable<IYoutubeCard[]>;
+
   public filterObjectObserver = this.filterService.filterObjObserver;
 
   constructor(
-    private youtubeApi: YoutubeApiService,
     private filterService: FilteredResultServiceService,
     private store: Store
   ) {
-    this.searchResultsObserver = this.store.select(selectYoutubeCards);
+    this.customYoutubeCards$ = this.store.select(selectCustomCards);
+    this.youtubeCards$ = this.store.select(selectYoutubeCards);
+
+    this.searchResultsObserver = combineLatest([
+      this.youtubeCards$,
+      this.customYoutubeCards$,
+    ]).pipe(
+      map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards])
+    );
     this.store.dispatch(getYoutubeCardsFromApi());
   }
 

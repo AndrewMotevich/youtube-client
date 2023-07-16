@@ -14,11 +14,12 @@ import LoginPageModule from './auth/pages/login-page/login-page.module';
 import AdminPageModule from './auth/pages/admin-page/admin-page.module';
 import MyInterceptor from './youtube/services/interceptors.service';
 
-import { featureReducer } from './redux/reducers/counter.reducer';
+import { CounterReducer } from './redux/reducers/counter.reducer';
 import CounterComponent from './youtube/components/counter-component/counter-component.component';
 import CounterEffects from './redux/effects/counter.effect';
 import { YoutubeCardsReducer } from './redux/reducers/youtube-cards.reducer';
 import YoutubeApiEffects from './redux/effects/youtube-api.effect';
+import { CustomCardsReducer } from './redux/reducers/custom-cards.reducer';
 
 @NgModule({
   declarations: [
@@ -36,8 +37,9 @@ import YoutubeApiEffects from './redux/effects/youtube-api.effect';
     AdminPageModule,
     HttpClientModule,
     StoreModule.forRoot({
-      counter: featureReducer,
+      counter: CounterReducer,
       videos: YoutubeCardsReducer,
+      customCards: CustomCardsReducer,
     }),
     EffectsModule.forRoot(CounterEffects, YoutubeApiEffects),
   ],

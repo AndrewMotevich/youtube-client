@@ -2,8 +2,9 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { IYoutubeCard } from 'src/app/redux/state.model';
-import { Observable } from 'rxjs';
+import { Observable, combineLatest, map } from 'rxjs';
 import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
+import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
 
 @Component({
   selector: 'app-video-card',
@@ -18,22 +19,36 @@ export default class VideoCardComponent implements OnInit {
     day: 'numeric',
   };
 
-  public youtubeCards$?: Observable<IYoutubeCard[]>;
+  public searchResultObserver!: Observable<IYoutubeCard[]>;
 
   public videoItem?: IYoutubeCard;
 
   public enFormatDate?: string;
 
-  public img?: string;
+  public imageUrl?: string;
 
-  constructor(private route: ActivatedRoute, private store: Store) {}
+  private youtubeCards$?: Observable<IYoutubeCard[]>;
+
+  private customYoutubeCards$?: Observable<IYoutubeCard[]>;
+
+  constructor(private route: ActivatedRoute, private store: Store) {
+    this.customYoutubeCards$ = this.store.select(selectCustomCards);
+    this.youtubeCards$ = this.store.select(selectYoutubeCards);
+
+    this.searchResultObserver = combineLatest([
+      this.youtubeCards$,
+      this.customYoutubeCards$,
+    ]).pipe(
+      map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards])
+    );
+  }
 
   public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.youtubeCards$ = this.store.select(selectYoutubeCards);
-    this.youtubeCards$.subscribe((res) => {
-      this.videoItem = res.find((video) => video.videoUrl === id);
-      this.img = this.videoItem?.imageUrl;
+
+    this.searchResultObserver.subscribe((res) => {
+      this.videoItem = res.find((video) => video.id === id);
+      this.imageUrl = this.videoItem?.imageUrl;
       this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
         Date.parse(this.videoItem?.creationDate || '')
       );

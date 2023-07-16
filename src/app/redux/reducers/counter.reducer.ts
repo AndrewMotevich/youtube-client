@@ -8,7 +8,7 @@ import {
 
 export const initialState = 0;
 
-export const featureReducer = createReducer(
+export const CounterReducer = createReducer(
   initialState,
   on(increment, (state): number => state + 1),
   on(decrement, (state): number => state - 1),

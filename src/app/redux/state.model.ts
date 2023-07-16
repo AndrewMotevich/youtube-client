@@ -1,6 +1,7 @@
 import { Statistics } from '../youtube/models/search-response.model';
 
 export interface IYoutubeCard {
+  id: string;
   title: string;
   description?: string;
   imageUrl: string;

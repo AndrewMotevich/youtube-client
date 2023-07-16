@@ -18,6 +18,7 @@ export default class YoutubeApiEffects {
         mergeAll(),
         map((res) =>
           res.map<IYoutubeCard>((obj) => ({
+            id: obj.id,
             title: obj.snippet.title,
             statistics: obj.statistics,
             imageUrl: obj.snippet.thumbnails['maxres'].url,

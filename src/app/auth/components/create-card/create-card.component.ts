@@ -7,7 +7,13 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { URL_VALIDATION_REGEX } from '../../constants/constants';
+import { Store } from '@ngrx/store';
+import addYoutubeCard from 'src/app/redux/actions/custom-cards.action';
+import { IYoutubeCard } from 'src/app/redux/state.model';
+import {
+  EMPTY_STATISTICS,
+  URL_VALIDATION_REGEX,
+} from '../../constants/constants';
 
 @Component({
   selector: 'app-create-card',
@@ -23,7 +29,7 @@ export default class CreateCardComponent {
       Validators.maxLength(20),
     ]),
     description: new FormControl('', [Validators.maxLength(255)]),
-    img: new FormControl('', [
+    imageUrl: new FormControl('', [
       Validators.required,
       Validators.pattern(URL_VALIDATION_REGEX),
     ]),
@@ -37,7 +43,8 @@ export default class CreateCardComponent {
     ]),
   });
 
-  // eslint-disable-next-line class-methods-use-this
+  constructor(private store: Store) {}
+
   private validateDate(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
       const date = control.value;
@@ -50,6 +57,14 @@ export default class CreateCardComponent {
 
   public submit() {
     if (!this.createCardForm.valid) return;
-    console.log('submit:', this.createCardForm.value);
+    this.store.dispatch(
+      addYoutubeCard({
+        card: {
+          ...(this.createCardForm.value as IYoutubeCard),
+          id: Date.now().toString(),
+          statistics: EMPTY_STATISTICS,
+        },
+      })
+    );
   }
 }
