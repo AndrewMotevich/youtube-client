@@ -20,7 +20,7 @@ export default class YoutubeApiEffects {
           res.map<IYoutubeCard>((obj) => ({
             title: obj.snippet.title,
             statistics: obj.statistics,
-            imageUrl: obj.snippet.thumbnails['medium'].url,
+            imageUrl: obj.snippet.thumbnails['maxres'].url,
             videoUrl: obj.id,
             creationDate: obj.snippet.publishedAt,
           }))

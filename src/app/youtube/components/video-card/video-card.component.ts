@@ -1,8 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
-import { ItemObj } from '../../models/search-response.model';
-import YoutubeApiService from '../../services/youtube-api.service';
-import mockResponse from '../../../../mock/results.json';
+import { Store } from '@ngrx/store';
+import { IYoutubeCard } from 'src/app/redux/state.model';
+import { Observable } from 'rxjs';
+import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
 
 @Component({
   selector: 'app-video-card',
@@ -17,28 +18,24 @@ export default class VideoCardComponent implements OnInit {
     day: 'numeric',
   };
 
-  public videoItem!: ItemObj;
+  public youtubeCards$?: Observable<IYoutubeCard[]>;
+
+  public videoItem?: IYoutubeCard;
 
   public enFormatDate?: string;
 
   public img?: string;
 
-  public parseDate?: number;
-
-  constructor(
-    private route: ActivatedRoute,
-    private youtubeApi: YoutubeApiService
-  ) {}
+  constructor(private route: ActivatedRoute, private store: Store) {}
 
   public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.youtubeApi.searchResponse.subscribe((videoItems) => {
-      this.videoItem =
-        videoItems.find((elem) => elem.id === id) || mockResponse.items[0];
-      this.img = this.videoItem?.snippet.thumbnails['maxres'].url;
-      this.parseDate = Date.parse(this.videoItem?.snippet.publishedAt || '');
+    this.youtubeCards$ = this.store.select(selectYoutubeCards);
+    this.youtubeCards$.subscribe((res) => {
+      this.videoItem = res.find((video) => video.videoUrl === id);
+      this.img = this.videoItem?.imageUrl;
       this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
-        this.parseDate
+        Date.parse(this.videoItem?.creationDate || '')
       );
     });
   }
