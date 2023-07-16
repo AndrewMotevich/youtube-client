@@ -1,4 +1,8 @@
-import { ChangeDetectionStrategy, Component } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
+  Component,
+} from '@angular/core';
 import { Observable, map, combineLatest } from 'rxjs';
 import { IYoutubeCard } from 'src/app/redux/state.model';
 import { Store } from '@ngrx/store';
@@ -6,7 +10,6 @@ import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
 import { getYoutubeCardsFromApi } from 'src/app/redux/actions/youtube-cards.action';
 import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
 import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
-import { ItemObj } from '../../models/search-response.model';
 
 @Component({
   selector: 'app-search-results',
@@ -15,7 +18,7 @@ import { ItemObj } from '../../models/search-response.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SearchResultsComponent {
-  public searchResultsObserver?: Observable<IYoutubeCard[]>;
+  public searchResults: IYoutubeCard[] = [];
 
   private youtubeCards$: Observable<IYoutubeCard[]>;
 
@@ -25,21 +28,38 @@ export default class SearchResultsComponent {
 
   constructor(
     private filterService: FilteredResultServiceService,
-    private store: Store
+    private store: Store,
+    private changeDetection: ChangeDetectorRef
   ) {
     this.customYoutubeCards$ = this.store.select(selectCustomCards);
     this.youtubeCards$ = this.store.select(selectYoutubeCards);
 
-    this.searchResultsObserver = combineLatest([
-      this.youtubeCards$,
-      this.customYoutubeCards$,
-    ]).pipe(
-      map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards])
-    );
+    combineLatest([this.youtubeCards$, this.customYoutubeCards$])
+      .pipe(
+        map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards]),
+        map((x) => {
+          this.searchResults = x;
+        })
+      )
+      .subscribe(() => {
+        this.changeDetection.markForCheck();
+      });
+
     this.store.dispatch(getYoutubeCardsFromApi());
+
+    this.filterObjectObserver.subscribe((filterObj) => {
+      if (filterObj.viewOrder !== null) {
+        this.sortByViews(filterObj.viewOrder, this.searchResults);
+      } else if (filterObj.dateOrder !== null) {
+        this.sortByDate(filterObj.dateOrder, this.searchResults);
+      }
+    });
   }
 
-  private sortByViews(order: boolean, searchResults: ItemObj[]): ItemObj[] {
+  private sortByViews(
+    order: boolean,
+    searchResults: IYoutubeCard[]
+  ): IYoutubeCard[] {
     if (order) {
       return searchResults.sort(
         (a, b) =>
@@ -51,16 +71,14 @@ export default class SearchResultsComponent {
     );
   }
 
-  private sortByDate(order: boolean, searchResults: ItemObj[]) {
+  private sortByDate(order: boolean, searchResults: IYoutubeCard[]) {
     if (order) {
       return searchResults.sort(
-        (a, b) =>
-          Date.parse(a.snippet.publishedAt) - Date.parse(b.snippet.publishedAt)
+        (a, b) => Date.parse(a.creationDate) - Date.parse(b.creationDate)
       );
     }
     return searchResults.sort(
-      (a, b) =>
-        Date.parse(b.snippet.publishedAt) - Date.parse(a.snippet.publishedAt)
+      (a, b) => Date.parse(b.creationDate) - Date.parse(a.creationDate)
     );
   }
 }

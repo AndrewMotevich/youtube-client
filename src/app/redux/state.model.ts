@@ -7,7 +7,7 @@ export interface IYoutubeCard {
   imageUrl: string;
   videoUrl?: string;
   creationDate: string;
-  statistics?: Statistics;
+  statistics: Statistics;
 }
 
 export interface AppState {

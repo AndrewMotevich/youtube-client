@@ -10,6 +10,7 @@ import {
 import { Store } from '@ngrx/store';
 import addYoutubeCard from 'src/app/redux/actions/custom-cards.action';
 import { IYoutubeCard } from 'src/app/redux/state.model';
+import { Router } from '@angular/router';
 import {
   EMPTY_STATISTICS,
   URL_VALIDATION_REGEX,
@@ -43,7 +44,7 @@ export default class CreateCardComponent {
     ]),
   });
 
-  constructor(private store: Store) {}
+  constructor(private store: Store, private router: Router) {}
 
   private validateDate(): ValidatorFn {
     return (control: AbstractControl): ValidationErrors | null => {
@@ -66,5 +67,7 @@ export default class CreateCardComponent {
         },
       })
     );
+    this.createCardForm.reset();
+    this.router.navigate(['/main']);
   }
 }
