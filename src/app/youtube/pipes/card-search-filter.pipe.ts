@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { ItemObj } from '../models/search-response.model';
+import { IYoutubeCard } from 'src/app/redux/state.model';
 import { IFilterSearchType } from '../models/filter-search.model';
 
 @Pipe({
@@ -7,12 +7,12 @@ import { IFilterSearchType } from '../models/filter-search.model';
 })
 export default class CardFilterPipe implements PipeTransform {
   public transform(
-    value: ItemObj[],
+    value: IYoutubeCard[],
     filterObj: IFilterSearchType | null
-  ): ItemObj[] {
+  ): IYoutubeCard[] {
     if (filterObj?.queryString) {
       const filteredArray = value.filter((elem) =>
-        elem.snippet.title
+        elem.title
           .toLowerCase()
           .includes((filterObj.queryString as string).toLowerCase())
       );

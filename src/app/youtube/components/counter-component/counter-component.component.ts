@@ -8,7 +8,7 @@ import {
   setCounter,
   sideEffectAction,
 } from 'src/app/redux/actions/counter.action';
-import { selectFeatureCount } from 'src/app/redux/selectors/counter.selector';
+import selectFeatureCount from 'src/app/redux/selectors/counter.selector';
 
 @Component({
   selector: 'app-counter-component',

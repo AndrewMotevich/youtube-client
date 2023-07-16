@@ -30,8 +30,8 @@
         {{item?.statistics?.commentCount | shortNumber}}
       </div>
     </div>
-    <p class="search-item-title">{{item?.snippet?.title}}</p>
-    <a routerLink="/detailed/{{item?.id}}">
+    <p class="search-item-title">{{item?.title}}</p>
+    <a routerLink="/detailed/{{item?.videoUrl}}">
       <button
         class="search-item-button"
         mat-button>
@@ -39,5 +39,5 @@
       </button>
     </a>
   </mat-card>
-  <div class="footer-color  {{item?.snippet?.publishedAt | cardColor}}"></div>
+  <div class="footer-color  {{item?.creationDate | cardColor}}"></div>
 </section>

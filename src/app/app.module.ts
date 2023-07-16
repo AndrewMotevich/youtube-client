@@ -17,6 +17,8 @@ import MyInterceptor from './youtube/services/interceptors.service';
 import { featureReducer } from './redux/reducers/counter.reducer';
 import CounterComponent from './youtube/components/counter-component/counter-component.component';
 import CounterEffects from './redux/effects/counter.effect';
+import { YoutubeCardsReducer } from './redux/reducers/youtube-cards.reducer';
+import YoutubeApiEffects from './redux/effects/youtube-api.effect';
 
 @NgModule({
   declarations: [
@@ -33,8 +35,11 @@ import CounterEffects from './redux/effects/counter.effect';
     LoginPageModule,
     AdminPageModule,
     HttpClientModule,
-    StoreModule.forRoot({ counter: featureReducer }),
-    EffectsModule.forRoot(CounterEffects),
+    StoreModule.forRoot({
+      counter: featureReducer,
+      videos: YoutubeCardsReducer,
+    }),
+    EffectsModule.forRoot(CounterEffects, YoutubeApiEffects),
   ],
   providers: [
     {

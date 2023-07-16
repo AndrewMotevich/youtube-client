@@ -1,6 +1,9 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
-import mockResponse from './mock-results/results.json';
+import { Observable } from 'rxjs';
+import { IYoutubeCard } from 'src/app/redux/state.model';
+import { Store } from '@ngrx/store';
+import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
+import { getYoutubeCardsFromApi } from 'src/app/redux/actions/youtube-cards.action';
 import YoutubeApiService from '../../services/youtube-api.service';
 import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
 import { ItemObj } from '../../models/search-response.model';
@@ -12,32 +15,17 @@ import { ItemObj } from '../../models/search-response.model';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SearchResultsComponent {
-  public searchResultsObserver = new BehaviorSubject<ItemObj[]>(
-    mockResponse.items
-  );
+  public searchResultsObserver?: Observable<IYoutubeCard[]>;
 
   public filterObjectObserver = this.filterService.filterObjObserver;
 
   constructor(
     private youtubeApi: YoutubeApiService,
-    private filterService: FilteredResultServiceService
+    private filterService: FilteredResultServiceService,
+    private store: Store
   ) {
-    this.youtubeApi.searchResponse.subscribe((res) =>
-      this.searchResultsObserver.next(res)
-    );
-    this.filterObjectObserver.subscribe((filterObj) => {
-      this.youtubeApi.searchResponse.subscribe((res) => {
-        if (filterObj.viewOrder !== null) {
-          this.searchResultsObserver.next(
-            this.sortByViews(filterObj.viewOrder, res)
-          );
-        } else if (filterObj.dateOrder !== null) {
-          this.searchResultsObserver.next(
-            this.sortByDate(filterObj.dateOrder, res)
-          );
-        }
-      });
-    });
+    this.searchResultsObserver = this.store.select(selectYoutubeCards);
+    this.store.dispatch(getYoutubeCardsFromApi());
   }
 
   private sortByViews(order: boolean, searchResults: ItemObj[]): ItemObj[] {
