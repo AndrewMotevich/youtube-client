@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ItemObj } from '../../models/search-response.model';
 import YoutubeApiService from '../../services/youtube-api.service';
-import mockResponse from '../search-results/mock-results/results.json';
+import mockResponse from '../../../../mock/results.json';
 
 @Component({
   selector: 'app-video-card',

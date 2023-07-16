@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpParams } from '@angular/common/http';
 import { BehaviorSubject } from 'rxjs';
-import response from '../components/search-results/mock-results/results.json';
+import response from '../../../mock/results.json';
 import {
   IPreSearchResponse,
   ISearchResponse,
