@@ -2,7 +2,7 @@
 
 ## Deployment: [Link](https://youtube-client.vercel.app/main)
 
-![image](https://github.com/AndrewMotevich/youtube-client/assets/101500007/2fc1e5af-1c3f-422f-ac02-30835276240f)
+![image](https://github.com/AndrewMotevich/youtube-client/assets/101500007/27ccba3d-3692-48a7-9455-886225e12745)
 
 
 <strong>
