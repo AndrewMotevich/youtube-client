@@ -7,13 +7,15 @@ import { Pipe, PipeTransform } from '@angular/core';
 export default class ShortNumberPipe implements PipeTransform {
   public transform(value: string | undefined): string | null {
     const number = Number(value);
+
     if (Number.isNaN(number)) return null;
     if (number === null) return null;
     if (number === undefined) return null;
     if (number === 0) return null;
-    let abs = Math.abs(number);
+
     const rounder = 10 ** 1;
     const isNegative = number < 0;
+    let abs = Math.abs(number);
     let key = '';
 
     const powers = [

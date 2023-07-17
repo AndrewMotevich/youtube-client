@@ -7,11 +7,16 @@ import { Pipe, PipeTransform } from '@angular/core';
 export default class CardColorPipe implements PipeTransform {
   public transform(value: string | undefined): string | null {
     if (value === undefined) return null;
-    const greenValue = 7 * 24 * 3600000;
-    const blueValue = 31 * 24 * 3600000;
-    const yellowValue = 6 * 31 * 24 * 3600000;
+
+    const millisecondsInHour = 3600000;
+
+    const greenValue = 7 * 24 * millisecondsInHour;
+    const blueValue = 31 * 24 * millisecondsInHour;
+    const yellowValue = 6 * 31 * 24 * millisecondsInHour;
+
     const currentDate = Date.parse(Date());
     const parseDate = Number(currentDate) - Date.parse(value);
+
     if (parseDate < greenValue) {
       return 'footer-color_green';
     }

@@ -1,10 +1,16 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  Input,
+  OnInit,
+} from '@angular/core';
 import { IYoutubeCard } from 'src/app/redux/state.model';
 
 @Component({
   selector: 'app-search-item',
   templateUrl: './search-item.component.html',
   styleUrls: ['./search-item.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class SearchItemComponent implements OnInit {
   @Input() public item?: IYoutubeCard;

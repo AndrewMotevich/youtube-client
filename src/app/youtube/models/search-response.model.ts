@@ -17,6 +17,14 @@ export interface ISearchResponse {
   items: ItemObj[];
 }
 
+export type Statistics = {
+  viewCount: string;
+  likeCount: string;
+  dislikeCount: string;
+  favoriteCount: string;
+  commentCount: string;
+};
+
 type Snippet = {
   publishedAt: string;
   channelId: string;
@@ -40,10 +48,3 @@ type Snippet = {
   defaultAudioLanguage: string;
 };
 
-export type Statistics = {
-  viewCount: string;
-  likeCount: string;
-  dislikeCount: string;
-  favoriteCount: string;
-  commentCount: string;
-};

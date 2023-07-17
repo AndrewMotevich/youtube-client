@@ -9,8 +9,10 @@ import { Store } from '@ngrx/store';
 import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
 import { getYoutubeCardsFromApi } from 'src/app/redux/actions/youtube-cards.action';
 import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-search-results',
   templateUrl: './search-results.component.html',

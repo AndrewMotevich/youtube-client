@@ -1,15 +1,18 @@
-import { Component, OnInit } from '@angular/core';
+import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
 import { IYoutubeCard } from 'src/app/redux/state.model';
 import { Observable, combineLatest, map } from 'rxjs';
 import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
 import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
+import { UntilDestroy } from '@ngneat/until-destroy';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-video-card',
   templateUrl: './video-card.component.html',
   styleUrls: ['./video-card.component.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export default class VideoCardComponent implements OnInit {
   private options: Intl.DateTimeFormatOptions = {

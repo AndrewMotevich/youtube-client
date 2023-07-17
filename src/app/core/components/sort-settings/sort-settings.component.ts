@@ -1,6 +1,8 @@
 import { ChangeDetectionStrategy, Component } from '@angular/core';
+import { UntilDestroy } from '@ngneat/until-destroy';
 import FilteredResultServiceService from '../../services/filtered-result-service.service';
 
+@UntilDestroy({ checkProperties: true })
 @Component({
   selector: 'app-sort-settings',
   templateUrl: './sort-settings.component.html',
