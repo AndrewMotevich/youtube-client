@@ -1,0 +1,26 @@
+p {
+  margin: 0;
+  padding: 0;
+}
+
+.sort-settings-wrapper {
+  width: 479px;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  font-size: 12px;
+  a {
+    text-decoration: underline;
+    cursor: pointer;
+    color: #2f80ed;
+  }
+}
+
+.sort-settings {
+  height: 50px;
+  background-color: #e5e5e5;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}

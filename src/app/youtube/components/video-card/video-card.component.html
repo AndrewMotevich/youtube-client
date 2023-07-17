@@ -1,0 +1,55 @@
+<div class="video-card-container">
+
+  <a routerLink="/main">
+    <button class="video-card-button"><</button>
+  </a>
+
+  <img
+    class="video-card-item__img"
+    src="{{imageUrl}}"
+    alt="card-img">
+
+  <div class="details-container">
+
+    <div class="title-container">
+      <h2>{{videoItem?.title}}</h2>
+      <div class="title-date">{{enFormatDate}}</div>
+    </div>
+
+    <div class="description-container">
+      <h4>Description:</h4>
+      <p>{{videoItem?.description}}</p>
+    </div>
+
+    <div class="item-info">
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/viewed.png"
+          alt="viewed">
+        {{videoItem?.statistics?.viewCount | shortNumber}}
+      </div>
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/liked.png"
+          alt="like">
+        {{videoItem?.statistics?.likeCount | shortNumber}}
+      </div>
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/dislike.png"
+          alt="dislike">
+        {{videoItem?.statistics?.dislikeCount | shortNumber}}
+      </div>
+      <div class="item-info-item">
+        <img
+          src="../../../assets/icons/copy.png"
+          alt="copy">
+        {{videoItem?.statistics?.commentCount | shortNumber}}
+      </div>
+    </div>
+
+    <div class="footer-color  {{videoItem?.creationDate | cardColor}}"></div>
+
+  </div>
+
+</div>

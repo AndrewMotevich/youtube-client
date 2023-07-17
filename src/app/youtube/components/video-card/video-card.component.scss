@@ -1,0 +1,114 @@
+.video-card-container > * {
+  box-sizing: border-box;
+}
+
+.video-card-container {
+  margin-top: 44px;
+  width: 1200px;
+  height: 461px;
+  display: flex;
+  h2 {
+    margin: 0;
+    width: 248px;
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 28px;
+  }
+
+  .title-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+    .title-date {
+      font-weight: 400;
+      font-size: 10px;
+      line-height: 12px;
+      text-align: right;
+      color: #828282;
+    }
+
+    p {
+      margin: 0;
+    }
+  }
+
+  .video-card-item-img {
+    width: 729px;
+    border-radius: 0px 0px 0px 5px;
+  }
+
+  .details-container {
+    position: relative;
+    width: 436px;
+    height: inherit;
+    padding: 35px 34px 30px 37px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    background: #e5e5e5;
+    border-radius: 0px 5px 5px 0px;
+  }
+
+  .description-container {
+    height: 280px;
+    font-family: "Roboto";
+    font-style: normal;
+    font-weight: 400;
+    font-size: 12px;
+    line-height: 14px;
+    overflow: auto;
+    h4 {
+      margin: 0;
+      font-family: "Roboto";
+      font-style: normal;
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 16px;
+      display: flex;
+      align-items: center;
+    }
+    p {
+      margin: 0;
+      color: #828282;
+    }
+  }
+
+  .video-card-button {
+    cursor: pointer;
+    width: 32px;
+    height: 32px;
+    background: #2f80ed;
+    color: white;
+    border: none;
+    border-radius: 5px 0px 0px 5px;
+  }
+
+  .item-info {
+    width: 202px;
+    height: 13px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+}
+
+.footer-color {
+  width: 100%;
+  height: 5px;
+  position: absolute;
+  bottom: 0;
+  border-bottom-right-radius: 4px;
+  &_red {
+    background-color: red;
+  }
+  &_blue {
+    background-color: blue;
+  }
+  &_yellow {
+    background-color: yellow;
+  }
+  &_green {
+    background-color: greenyellow;
+  }
+}

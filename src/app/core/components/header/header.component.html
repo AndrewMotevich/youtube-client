@@ -1,0 +1,45 @@
+<header>
+  <div class="header-wrapper">
+    <div class="search-wrapper">
+
+      <a routerLink="/main">
+        <img
+          src="../../../assets/logo.png"
+          alt="logo">
+      </a>
+
+      <form>
+        <input
+          class="input-search"
+          placeholder="What do you want to find out?"
+          (keydown.enter)="getVideosFromApi($event)"
+          #searchInput>
+        <button class="search-button">search</button>
+      </form>
+
+      <div
+        class="settings-button"
+        (click)="settingsButtonHandler()">
+        <img
+          src="../../../assets/Vector.svg"
+          alt="settings">
+      </div>
+
+      <div>
+        <div class="user-wrapper">
+          <p
+            routerLink="/login"
+            (click)="logOut()">{{(getIsLogin() | async) ? 'LogOut' : 'LogIn'}}</p>
+          <div
+            class="user-button"
+            routerLink="/admin">
+            <img
+              src="../../../assets/Subtract.svg"
+              alt="user">
+          </div>
+        </div>
+      </div>
+    </div>
+    <app-sort-settings *ngIf="showSettings"></app-sort-settings>
+  </div>
+</header>
