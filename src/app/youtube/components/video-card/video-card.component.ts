@@ -1,11 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { IYoutubeCard, YoutubeState } from 'src/app/redux/state.model';
-import { Observable, combineLatest, map } from 'rxjs';
-import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
-import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
+import { IYoutubeCard } from 'src/app/redux/state.model';
+import { Observable } from 'rxjs';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import selectAllCards from 'src/app/redux/selectors/all-cards.selector';
 
 @UntilDestroy({ checkProperties: true })
 @Component({
@@ -22,35 +21,21 @@ export default class VideoCardComponent implements OnInit {
     day: 'numeric',
   };
 
-  public searchResultObserver!: Observable<IYoutubeCard[]>;
-
   public videoItem?: IYoutubeCard;
 
   public enFormatDate?: string;
 
   public imageUrl?: string;
 
-  private youtubeCards$?: Observable<YoutubeState>;
-
-  private customYoutubeCards$?: Observable<YoutubeState>;
+  private allCards$?: Observable<IYoutubeCard[]>;
 
   constructor(private route: ActivatedRoute, private store: Store) {
-    this.customYoutubeCards$ = this.store.select(selectCustomCards);
-    this.youtubeCards$ = this.store.select(selectYoutubeCards);
-    this.searchResultObserver = combineLatest([
-      this.youtubeCards$,
-      this.customYoutubeCards$,
-    ]).pipe(
-      map(([youtubeCards, customCards]) => [
-        ...youtubeCards.videos,
-        ...customCards.videos,
-      ])
-    );
+    this.allCards$ = this.store.select(selectAllCards);
   }
 
   public ngOnInit(): void {
     const id = this.route.snapshot.paramMap.get('id');
-    this.searchResultObserver.subscribe((res) => {
+    this.allCards$?.subscribe((res) => {
       this.videoItem = res.find((video) => video.id === id);
       this.imageUrl = this.videoItem?.imageUrl;
       this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
