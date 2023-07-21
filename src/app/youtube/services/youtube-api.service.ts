@@ -12,6 +12,7 @@ import {
   providedIn: 'root',
 })
 export default class YoutubeApiService {
+  // delete uncessory
   public searchResponse = new BehaviorSubject<ItemObj[]>(response.items);
 
   constructor(private http: HttpClient) {
@@ -29,6 +30,8 @@ export default class YoutubeApiService {
       }
     );
   }
+
+  // refactor: delete callback hell
 
   public getVideoByQueryString(searchQuery = 'angular', maxResult = 3) {
     const searchHttpParams = new HttpParams()

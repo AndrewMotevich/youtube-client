@@ -1,6 +1,6 @@
 import { createFeatureSelector } from '@ngrx/store';
-import { IYoutubeCard } from '../state.model';
+import { YoutubeState } from '../state.model';
 
-const selectYoutubeCards = createFeatureSelector<IYoutubeCard[]>('videos');
+const selectYoutubeCards = createFeatureSelector<YoutubeState>('videos');
 
 export default selectYoutubeCards;

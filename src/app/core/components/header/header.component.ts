@@ -31,6 +31,7 @@ export default class HeaderComponent {
   public getVideosFromApi(event: Event) {
     event.preventDefault();
     const searchQuery = (event.target as HTMLInputElement).value;
+    // refactor: add dispatch
     this.youtubeApiService.getVideoByQueryString(searchQuery);
   }
 }

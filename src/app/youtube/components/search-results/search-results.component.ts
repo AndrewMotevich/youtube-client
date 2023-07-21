@@ -4,10 +4,10 @@ import {
   Component,
 } from '@angular/core';
 import { Observable, map, combineLatest } from 'rxjs';
-import { IYoutubeCard } from 'src/app/redux/state.model';
+import { IYoutubeCard, YoutubeState } from 'src/app/redux/state.model';
 import { Store } from '@ngrx/store';
 import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
-import { getYoutubeCardsFromApi } from 'src/app/redux/actions/youtube-cards.action';
+import { getYoutubeCards } from 'src/app/redux/actions/youtube-cards.action';
 import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
 import { UntilDestroy } from '@ngneat/until-destroy';
 import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
@@ -22,9 +22,9 @@ import FilteredResultServiceService from '../../../core/services/filtered-result
 export default class SearchResultsComponent {
   public searchResults: IYoutubeCard[] = [];
 
-  private youtubeCards$: Observable<IYoutubeCard[]>;
+  private youtubeCards$: Observable<YoutubeState>;
 
-  private customYoutubeCards$: Observable<IYoutubeCard[]>;
+  private customYoutubeCards$: Observable<YoutubeState>;
 
   public filterObjectObserver = this.filterService.filterObjObserver;
 
@@ -33,21 +33,21 @@ export default class SearchResultsComponent {
     private store: Store,
     private changeDetection: ChangeDetectorRef
   ) {
+    this.store.dispatch(getYoutubeCards());
     this.customYoutubeCards$ = this.store.select(selectCustomCards);
     this.youtubeCards$ = this.store.select(selectYoutubeCards);
 
     combineLatest([this.youtubeCards$, this.customYoutubeCards$])
       .pipe(
-        map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards]),
-        map((x) => {
-          this.searchResults = x;
-        })
+        map(([youtubeCards, customCards]) => [
+          ...youtubeCards.videos,
+          ...customCards.videos,
+        ])
       )
-      .subscribe(() => {
+      .subscribe((res) => {
+        this.searchResults = res;
         this.changeDetection.markForCheck();
       });
-
-    this.store.dispatch(getYoutubeCardsFromApi());
 
     this.filterObjectObserver.subscribe((filterObj) => {
       if (filterObj.viewOrder !== null) {

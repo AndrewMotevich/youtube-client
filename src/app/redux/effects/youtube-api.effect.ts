@@ -3,19 +3,20 @@ import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeAll } from 'rxjs/operators';
 import YoutubeApiService from 'src/app/youtube/services/youtube-api.service';
 import {
-  getYoutubeCardsFromApi,
-  setYoutubeCards,
+  getYoutubeCards,
+  getYoutubeCardsSuccess,
 } from '../actions/youtube-cards.action';
 import { IYoutubeCard } from '../state.model';
 
 @Injectable()
 export default class YoutubeApiEffects {
-  public youtubeApiSideEffect$ = createEffect(() => {
+  public getYoutubeCardsEffect$ = createEffect(() => {
     try {
       return this.actions$.pipe(
-        ofType(getYoutubeCardsFromApi),
+        ofType(getYoutubeCards),
         map(() => this.youtubeApi.searchResponse),
         mergeAll(),
+        // push this logic to service (adapter pattern / middleware)
         map((res) =>
           res.map<IYoutubeCard>((obj) => ({
             id: obj.id,
@@ -26,7 +27,7 @@ export default class YoutubeApiEffects {
             creationDate: obj.snippet.publishedAt,
           }))
         ),
-        map((res) => setYoutubeCards({ videos: [...res] }))
+        map((res) => getYoutubeCardsSuccess({ videos: [...res] }))
       );
     } catch (error) {
       throw new Error();
