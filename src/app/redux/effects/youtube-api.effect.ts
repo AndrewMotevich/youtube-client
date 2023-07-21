@@ -1,12 +1,11 @@
 import { Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import { map, mergeAll } from 'rxjs/operators';
-import YoutubeApiService from 'src/app/youtube/services/youtube-api.service';
+import YoutubeAdapterService from 'src/app/youtube/services/youtube-adapter.service';
 import {
   getYoutubeCards,
   getYoutubeCardsSuccess,
 } from '../actions/youtube-cards.action';
-import { IYoutubeCard } from '../state.model';
 
 @Injectable()
 export default class YoutubeApiEffects {
@@ -14,20 +13,13 @@ export default class YoutubeApiEffects {
     try {
       return this.actions$.pipe(
         ofType(getYoutubeCards),
-        map(() => this.youtubeApi.searchResponse),
-        mergeAll(),
-        // push this logic to service (adapter pattern / middleware)
-        map((res) =>
-          res.map<IYoutubeCard>((obj) => ({
-            id: obj.id,
-            title: obj.snippet.title,
-            statistics: obj.statistics,
-            imageUrl: obj.snippet.thumbnails['maxres'].url,
-            videoUrl: obj.id,
-            creationDate: obj.snippet.publishedAt,
-          }))
+        map((caughtAction) =>
+          this.youtubeAdapter.getVideos(caughtAction.queryString || '')
         ),
-        map((res) => getYoutubeCardsSuccess({ videos: [...res] }))
+        mergeAll(),
+        map((youtubeCards) =>
+          getYoutubeCardsSuccess({ videos: [...youtubeCards] })
+        )
       );
     } catch (error) {
       throw new Error();
@@ -36,6 +28,6 @@ export default class YoutubeApiEffects {
 
   constructor(
     private actions$: Actions,
-    private youtubeApi: YoutubeApiService
+    private youtubeAdapter: YoutubeAdapterService
   ) {}
 }
