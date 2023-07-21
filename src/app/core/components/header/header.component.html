@@ -8,13 +8,17 @@
           alt="logo">
       </a>
 
-      <form>
+      <form [formGroup]="searchForm">
         <input
           class="input-search"
           placeholder="What do you want to find out?"
-          (keydown.enter)="getVideosFromApi($event)"
-          #searchInput>
-        <button class="search-button">search</button>
+          (keydown.enter)="getVideosFromApi()"
+          formControlName="search">
+        <button
+          class="search-button"
+          (click)="getVideosFromApi()">
+          search
+        </button>
       </form>
 
       <div

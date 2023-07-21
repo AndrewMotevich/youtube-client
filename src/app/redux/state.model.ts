@@ -14,3 +14,7 @@ export interface AppState {
   youtubeCards: IYoutubeCard[];
   counter: number;
 }
+
+export interface YoutubeState {
+  videos: IYoutubeCard[];
+}

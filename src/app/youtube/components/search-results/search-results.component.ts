@@ -2,14 +2,14 @@ import {
   ChangeDetectionStrategy,
   ChangeDetectorRef,
   Component,
+  OnInit,
 } from '@angular/core';
-import { Observable, map, combineLatest } from 'rxjs';
+import { Observable } from 'rxjs';
 import { IYoutubeCard } from 'src/app/redux/state.model';
 import { Store } from '@ngrx/store';
-import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
-import { getYoutubeCardsFromApi } from 'src/app/redux/actions/youtube-cards.action';
-import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
+import { getYoutubeCards } from 'src/app/redux/actions/youtube-cards.action';
 import { UntilDestroy } from '@ngneat/until-destroy';
+import selectAllCards from 'src/app/redux/selectors/all-cards.selector';
 import FilteredResultServiceService from '../../../core/services/filtered-result-service.service';
 
 @UntilDestroy({ checkProperties: true })
@@ -19,12 +19,10 @@ import FilteredResultServiceService from '../../../core/services/filtered-result
   styleUrls: ['./search-results.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export default class SearchResultsComponent {
+export default class SearchResultsComponent implements OnInit {
   public searchResults: IYoutubeCard[] = [];
 
-  private youtubeCards$: Observable<IYoutubeCard[]>;
-
-  private customYoutubeCards$: Observable<IYoutubeCard[]>;
+  private allCards$: Observable<IYoutubeCard[]>;
 
   public filterObjectObserver = this.filterService.filterObjObserver;
 
@@ -33,21 +31,15 @@ export default class SearchResultsComponent {
     private store: Store,
     private changeDetection: ChangeDetectorRef
   ) {
-    this.customYoutubeCards$ = this.store.select(selectCustomCards);
-    this.youtubeCards$ = this.store.select(selectYoutubeCards);
+    this.store.dispatch(getYoutubeCards({}));
+    this.allCards$ = this.store.select(selectAllCards);
+  }
 
-    combineLatest([this.youtubeCards$, this.customYoutubeCards$])
-      .pipe(
-        map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards]),
-        map((x) => {
-          this.searchResults = x;
-        })
-      )
-      .subscribe(() => {
-        this.changeDetection.markForCheck();
-      });
-
-    this.store.dispatch(getYoutubeCardsFromApi());
+  public ngOnInit() {
+    this.allCards$.subscribe((res) => {
+      this.searchResults = res;
+      this.changeDetection.markForCheck();
+    });
 
     this.filterObjectObserver.subscribe((filterObj) => {
       if (filterObj.viewOrder !== null) {
@@ -58,10 +50,7 @@ export default class SearchResultsComponent {
     });
   }
 
-  private sortByViews(
-    order: boolean,
-    searchResults: IYoutubeCard[]
-  ): IYoutubeCard[] {
+  private sortByViews(order: boolean, searchResults: IYoutubeCard[]) {
     if (order) {
       return searchResults.sort(
         (a, b) =>
