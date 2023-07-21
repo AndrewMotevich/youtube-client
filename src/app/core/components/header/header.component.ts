@@ -1,6 +1,8 @@
 import { Component, ChangeDetectionStrategy } from '@angular/core';
+import { FormControl, FormGroup } from '@angular/forms';
+import { Store } from '@ngrx/store';
 import LoginService from 'src/app/auth/services/login.service';
-import YoutubeApiService from 'src/app/youtube/services/youtube-api.service';
+import { getYoutubeCards } from 'src/app/redux/actions/youtube-cards.action';
 
 @Component({
   selector: 'app-header',
@@ -11,10 +13,11 @@ import YoutubeApiService from 'src/app/youtube/services/youtube-api.service';
 export default class HeaderComponent {
   public showSettings = false;
 
-  constructor(
-    private loginService: LoginService,
-    private youtubeApiService: YoutubeApiService
-  ) {}
+  public searchForm = new FormGroup({
+    search: new FormControl(''),
+  });
+
+  constructor(private loginService: LoginService, private store: Store) {}
 
   public getIsLogin() {
     return this.loginService.getIsLoginObservable();
@@ -28,10 +31,8 @@ export default class HeaderComponent {
     this.loginService.setIsLogin(false);
   }
 
-  public getVideosFromApi(event: Event) {
-    event.preventDefault();
-    const searchQuery = (event.target as HTMLInputElement).value;
-    // refactor: add dispatch
-    this.youtubeApiService.getVideoByQueryString(searchQuery);
+  public getVideosFromApi() {
+    const searchQuery = this.searchForm.controls.search.value;
+    this.store.dispatch(getYoutubeCards({ queryString: searchQuery || '' }));
   }
 }

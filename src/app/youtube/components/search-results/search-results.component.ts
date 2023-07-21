@@ -31,7 +31,7 @@ export default class SearchResultsComponent implements OnInit {
     private store: Store,
     private changeDetection: ChangeDetectorRef
   ) {
-    this.store.dispatch(getYoutubeCards());
+    this.store.dispatch(getYoutubeCards({}));
     this.allCards$ = this.store.select(selectAllCards);
   }
 
