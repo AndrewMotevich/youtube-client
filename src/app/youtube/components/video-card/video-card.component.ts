@@ -1,10 +1,10 @@
 import { ChangeDetectionStrategy, Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Store } from '@ngrx/store';
-import { IYoutubeCard } from 'src/app/redux/state.model';
+import { IYoutubeCard, YoutubeState } from 'src/app/redux/state.model';
 import { Observable, combineLatest, map } from 'rxjs';
-// import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
-// import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
+import selectYoutubeCards from 'src/app/redux/selectors/youtube-cards.selector';
+import selectCustomCards from 'src/app/redux/selectors/custom-cards.selector';
 import { UntilDestroy } from '@ngneat/until-destroy';
 
 @UntilDestroy({ checkProperties: true })
@@ -30,33 +30,32 @@ export default class VideoCardComponent implements OnInit {
 
   public imageUrl?: string;
 
-  private youtubeCards$?: Observable<IYoutubeCard[]>;
+  private youtubeCards$?: Observable<YoutubeState>;
 
-  private customYoutubeCards$?: Observable<IYoutubeCard[]>;
+  private customYoutubeCards$?: Observable<YoutubeState>;
 
   constructor(private route: ActivatedRoute, private store: Store) {
-    // this.customYoutubeCards$ = this.store.select(selectCustomCards);
-    // this.youtubeCards$ = this.store.select(selectYoutubeCards);
-    // this.searchResultObserver = combineLatest([
-    //   this.youtubeCards$,
-    //   this.customYoutubeCards$,
-    // ]).pipe(
-    //   map(([youtubeCards, customCards]) => [...youtubeCards, ...customCards])
-    // );
+    this.customYoutubeCards$ = this.store.select(selectCustomCards);
+    this.youtubeCards$ = this.store.select(selectYoutubeCards);
+    this.searchResultObserver = combineLatest([
+      this.youtubeCards$,
+      this.customYoutubeCards$,
+    ]).pipe(
+      map(([youtubeCards, customCards]) => [
+        ...youtubeCards.videos,
+        ...customCards.videos,
+      ])
+    );
   }
 
-  // eslint-disable-next-line class-methods-use-this
   public ngOnInit(): void {
-    // const id = this.route.snapshot.paramMap.get('id');
-    console.log();
+    const id = this.route.snapshot.paramMap.get('id');
+    this.searchResultObserver.subscribe((res) => {
+      this.videoItem = res.find((video) => video.id === id);
+      this.imageUrl = this.videoItem?.imageUrl;
+      this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
+        Date.parse(this.videoItem?.creationDate || '')
+      );
+    });
   }
-
-  //   this.searchResultObserver.subscribe((res) => {
-  //     this.videoItem = res.find((video) => video.id === id);
-  //     this.imageUrl = this.videoItem?.imageUrl;
-  //     this.enFormatDate = new Intl.DateTimeFormat('en-US', this.options).format(
-  //       Date.parse(this.videoItem?.creationDate || '')
-  //     );
-  //   });
-  // }
 }
